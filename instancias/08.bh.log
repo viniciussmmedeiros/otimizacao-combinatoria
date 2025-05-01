@@ -1,0 +1,2580 @@
+(seed, steps, file) = (1, 100000000, "selected_instances/08.txt")
+instance = (60, 1062, [[21, 52, 34, 51, 12, 37, 27, 2, 40, 46, 17, 59, 28, 55, 11, 4, 30, 31, 19, 8, 25, 7, 60, 36, 39, 49, 6, 15, 54, 14], [26, 12, 37, 35, 9, 3, 27, 40, 48, 59, 1, 24, 28, 38, 4, 22, 31, 19, 8, 25, 7, 60, 56, 36, 53, 39, 5, 49, 33, 13, 6, 15, 58, 54, 41, 23, 14, 16, 47, 10, 21, 50, 34], [49, 13, 6, 15, 58, 54, 2, 23, 16, 47, 10, 21, 52, 34, 26, 37, 35, 9, 20, 27, 46, 17, 55, 11, 4, 42, 29, 31, 44, 8, 7, 36, 5, 43], [14, 57, 51, 26, 12, 37, 9, 27, 2, 59, 32, 24, 1, 38, 11, 22, 42, 30, 3, 44, 8, 7, 60, 56, 36, 53, 45, 5, 49, 13, 6, 15, 58], [47, 10, 52, 50, 57, 51, 26, 20, 27, 46, 48, 17, 32, 24, 28, 38, 11, 42, 30, 2, 29, 31, 44, 19, 25, 60, 36, 45, 39, 43, 49, 4, 23, 14, 3], [29, 31, 19, 3, 8, 7, 60, 56, 36, 45, 39, 49, 54, 41, 23, 16, 47, 21, 52, 34, 51, 26, 12, 37, 18, 20, 27, 40, 46, 2, 48, 32, 24, 28, 1, 11, 4], [6, 21, 52, 50, 34, 57, 51, 20, 27, 40, 48, 17, 59, 32, 38, 2, 55, 11, 22, 42, 30, 1, 19, 8, 25, 60, 56, 53, 4, 49, 13, 15, 3, 41, 23, 14], [6, 31, 44, 25, 56, 36, 53, 39, 49, 33, 13, 54, 41, 23, 14, 16, 47, 10, 21, 52, 50, 57, 26, 12, 2, 37, 18, 35, 9, 20, 27, 40, 1, 7, 4, 24, 3, 55, 22, 42], [51, 12, 37, 18, 2, 40, 46, 48, 17, 32, 24, 4, 28, 38, 11, 3, 42, 30, 29, 44, 19, 60, 8, 53, 39, 33, 13, 15, 54, 41, 23, 14, 10, 52, 50], [17, 32, 5, 38, 11, 3, 29, 44, 53, 8, 43, 49, 33, 13, 58, 54, 14, 16, 47, 21, 52, 34, 57, 26, 12, 37, 2, 27, 9, 40, 46, 48], [47, 10, 52, 50, 57, 51, 26, 12, 37, 18, 35, 20, 27, 40, 9, 46, 48, 17, 1, 5, 7, 28, 4, 55, 30, 3, 19, 36, 6, 43, 49, 33, 15, 58, 54], [45, 39, 43, 49, 2, 13, 9, 54, 1, 47, 21, 4, 52, 11, 50, 34, 57, 51, 26, 37, 18, 20, 27, 6, 8, 46, 48, 59, 32, 24, 28, 55, 10, 22, 30, 29, 31, 44, 25, 60, 56, 53], [3, 29, 19, 12, 25, 60, 56, 53, 39, 43, 8, 15, 58, 54, 14, 47, 52, 10, 34, 57, 26, 37, 27, 2, 9, 17, 32, 24, 28, 7, 38, 4, 22, 42, 30], [48, 17, 4, 32, 38, 42, 30, 13, 31, 19, 8, 25, 56, 43, 33, 10, 41, 47, 21, 52, 57, 51, 2, 9, 37, 18, 40, 1, 5, 7, 46], [31, 19, 25, 60, 36, 3, 53, 45, 39, 49, 33, 54, 13, 41, 23, 16, 47, 21, 50, 51, 18, 20, 27, 40, 48, 2, 9, 32, 24, 28, 38, 55, 1, 22, 7, 30, 4, 11], [25, 56, 39, 43, 49, 33, 3, 58, 41, 23, 15, 6, 47, 8, 52, 34, 18, 35, 10, 27, 40, 24, 2, 38, 55, 22, 30, 29, 44, 19], [10, 18, 14, 40, 59, 9, 24, 28, 55, 42, 1, 5, 30, 7, 29, 11, 19, 25, 60, 36, 3, 39, 43, 49, 58, 54, 13, 41, 23, 21, 52, 50, 57], [24, 17, 28, 9, 55, 22, 42, 29, 44, 19, 25, 36, 11, 53, 45, 43, 49, 58, 54, 12, 16, 15, 6, 21, 8, 52, 57, 51, 35, 20, 27, 14, 40, 46, 48, 59, 32], [15, 6, 13, 52, 50, 34, 57, 26, 18, 37, 35, 14, 27, 59, 32, 17, 28, 2, 9, 55, 22, 1, 5, 7, 60, 56, 36, 11, 53, 39, 33, 41, 16], [26, 37, 35, 27, 40, 46, 48, 59, 32, 5, 7, 24, 28, 11, 55, 22, 3, 12, 31, 25, 15, 56, 6, 53, 8, 45, 39, 49, 54, 18, 21, 52, 57, 51], [50, 1, 51, 7, 37, 3, 12, 48, 59, 32, 15, 6, 24, 8, 28, 38, 22, 42, 18, 29, 31, 44, 10, 25, 56, 36, 14, 53, 43, 49, 33, 58, 17, 41, 2, 20, 47], [27, 40, 46, 18, 32, 24, 38, 42, 30, 2, 31, 44, 20, 25, 36, 21, 53, 45, 39, 43, 7, 58, 19, 54, 4, 41, 23, 47, 12, 34, 57, 16, 15, 13, 8, 37], [52, 57, 51, 3, 37, 35, 16, 27, 15, 6, 8, 46, 48, 59, 32, 24, 28, 38, 55, 42, 29, 22, 60, 56, 36, 53, 17, 45, 39, 43, 2, 9, 58, 5, 7, 47], [18, 54, 41, 47, 22, 50, 57, 51, 17, 2, 20, 9, 35, 21, 27, 23, 5, 46, 48, 32, 4, 28, 55, 12, 42, 16, 15, 6, 13, 29, 31, 44, 8, 25, 60, 36, 53, 45, 49, 33], [16, 15, 13, 52, 8, 50, 34, 57, 18, 27, 40, 14, 48, 59, 22, 17, 38, 2, 20, 55, 21, 31, 1, 5, 7, 60, 53, 45, 43, 24, 49, 33, 54, 12, 41], [53, 2, 20, 54, 41, 5, 19, 4, 11, 52, 50, 34, 57, 3, 51, 12, 37, 35, 6, 13, 27, 8, 48, 59, 28, 10, 55, 42, 29, 44, 56, 36], [22, 37, 35, 2, 20, 46, 48, 23, 1, 5, 25, 7, 19, 28, 4, 11, 38, 24, 55, 42, 30, 3, 12, 26, 29, 44, 16, 36, 15, 6, 13, 53, 45, 8, 43, 49, 58, 54, 18, 10, 50, 34, 51], [18, 48, 59, 32, 17, 38, 2, 27, 20, 9, 42, 30, 21, 23, 31, 44, 1, 5, 60, 19, 45, 43, 11, 33, 24, 58, 54, 41, 12, 26, 47, 15, 6, 13, 34, 57, 51, 37], [6, 13, 47, 52, 50, 57, 18, 37, 10, 35, 32, 17, 27, 9, 38, 21, 42, 23, 30, 5, 31, 36, 24, 53, 39, 49, 3, 33, 12, 26, 58, 54, 16, 41], [41, 47, 50, 51, 14, 37, 22, 28, 17, 46, 48, 27, 9, 59, 32, 1, 5, 38, 55, 7, 29, 42, 4, 11, 44, 36, 12, 53, 39, 43, 49, 16, 15, 13], [15, 6, 8, 47, 50, 57, 14, 40, 48, 22, 59, 32, 28, 2, 20, 38, 55, 21, 42, 1, 5, 25, 29, 60, 36, 24, 39, 49, 33, 3, 12, 58], [58, 10, 54, 14, 41, 47, 22, 28, 52, 50, 34, 57, 20, 9, 21, 37, 35, 23, 5, 7, 40, 19, 31, 29, 30, 4, 46, 48, 24, 12, 38, 55, 42, 15, 6, 13, 60, 56, 53, 45, 39, 18, 33], [47, 34, 16, 57, 15, 8, 37, 35, 40, 46, 48, 59, 10, 14, 38, 28, 2, 9, 56, 36, 21, 53, 25, 19, 31, 29, 58, 54, 11, 41, 24, 32], [50, 51, 1, 33, 37, 7, 25, 19, 35, 32, 3, 12, 59, 26, 16, 6, 13, 38, 44, 53, 10, 45, 39, 58, 54, 41, 22, 28, 47, 2, 27, 52], [43, 49, 58, 54, 2, 27, 20, 41, 34, 23, 47, 33, 19, 29, 11, 51, 24, 32, 37, 3, 26, 16, 46, 48, 8, 38, 55, 18, 42, 44, 56, 36, 39], [15, 6, 52, 8, 37, 18, 46, 48, 59, 22, 17, 38, 2, 27, 21, 23, 1, 33, 5, 56, 19, 31, 29, 53, 30, 4, 39, 11, 43, 49, 24, 58, 54, 3, 35, 26], [51, 2, 27, 20, 9, 34, 21, 23, 40, 1, 33, 46, 36, 48, 19, 29, 59, 30, 4, 11, 32, 3, 35, 55, 12, 26, 42, 6, 13, 44, 8, 60, 56, 53, 45, 39, 43, 49, 58, 10, 14, 22, 28], [42, 44, 10, 60, 14, 39, 43, 22, 54, 28, 2, 27, 9, 47, 34, 21, 23, 50, 57, 33, 5, 51, 36, 7, 25, 31, 29, 30, 4, 32, 35, 40, 46, 16, 15, 13], [12, 44, 60, 56, 16, 15, 6, 13, 43, 8, 38, 54, 47, 50, 57, 22, 17, 2, 20, 9, 40, 37, 34, 46, 48, 59, 23, 1, 5, 36, 19, 31, 29, 30, 32, 42, 35], [55, 22, 17, 2, 20, 9, 37, 56, 53, 45, 1, 33, 7, 25, 31, 11, 32, 52, 16, 57, 15, 6, 39, 8, 38, 18, 59, 10, 14], [30, 24, 50, 32, 51, 35, 26, 16, 15, 6, 8, 55, 14, 44, 22, 60, 56, 28, 17, 53, 45, 43, 2, 9, 34, 58, 54, 21, 33, 7, 25, 19, 29, 47], [38, 18, 60, 56, 53, 45, 14, 43, 58, 22, 28, 17, 27, 9, 37, 52, 50, 21, 57, 23, 5, 7, 31, 29, 30, 4, 24, 32, 3, 46, 35, 48, 26, 59, 13, 39, 8], [35, 12, 44, 60, 56, 16, 53, 45, 13, 39, 42, 54, 38, 18, 47, 10, 52, 14, 50, 57, 22, 28, 17, 27, 37, 48, 21, 23, 41, 5, 36, 25, 30, 55, 11, 3], [43, 39, 8, 47, 38, 50, 57, 18, 10, 46, 48, 22, 59, 28, 27, 9, 37, 34, 21, 41, 5, 30, 4, 60, 24, 53, 49, 3, 35, 12, 26, 54, 16], [12, 52, 15, 6, 57, 43, 42, 40, 18, 59, 22, 28, 27, 20, 37, 34, 56, 23, 41, 53, 5, 25, 4, 24, 32], [22, 27, 20, 60, 9, 37, 53, 49, 23, 1, 33, 5, 54, 36, 44, 30, 11, 24, 32, 52, 3, 35, 12, 57, 6, 39, 42, 38, 48, 59, 18, 10, 14], [52, 33, 50, 5, 57, 44, 31, 51, 29, 30, 11, 24, 32, 3, 35, 12, 48, 16, 15, 6, 13, 43, 39, 8, 38, 55, 10, 14, 60, 53, 49, 22, 28, 54, 2, 34, 21, 23, 41], [14, 28, 2, 27, 20, 9, 37, 21, 47, 23, 55, 33, 5, 36, 7, 25, 44, 31, 30, 11, 24, 32, 60, 56, 35, 12, 53, 26, 49, 15, 6, 43, 39, 42, 46, 50, 18, 57, 51, 10], [3, 35, 12, 59, 16, 15, 6, 8, 46, 18, 10, 58, 17, 48, 27, 2, 20, 37, 52, 21, 47, 57, 51, 1, 5, 36, 7, 25, 44, 31, 29, 30, 4, 11, 24], [34, 21, 57, 47, 51, 41, 5, 7, 25, 19, 44, 31, 29, 30, 11, 24, 32, 12, 59, 26, 15, 43, 39, 55, 8, 42, 38, 60, 53, 58, 54, 17, 48, 2, 27, 9, 52], [9, 37, 34, 50, 21, 47, 23, 41, 1, 5, 7, 30, 4, 11, 24, 60, 56, 35, 53, 12, 26, 58, 15, 6, 38, 52, 18, 14, 49, 28, 48, 59, 27, 20], [59, 47, 23, 1, 5, 45, 36, 7, 25, 19, 29, 11, 32, 3, 12, 26, 60, 56, 16, 53, 6, 13, 43, 8, 58, 42, 46, 40, 18, 51, 10, 14, 49, 17, 20, 9, 34, 50], [26, 15, 13, 43, 8, 42, 46, 40, 18, 51, 52, 10, 22, 58, 54, 48, 2, 27, 20, 9, 37, 34, 50, 21, 47, 23, 41, 33, 45, 36, 7, 25, 19, 44, 29, 30, 4, 24, 32, 12], [24, 32, 59, 3, 35, 12, 26, 15, 6, 13, 43, 39, 8, 38, 46, 18, 10, 58, 53, 22, 28, 17, 2, 27, 20, 9, 34, 50, 47, 41, 1, 33, 36, 25, 44, 29, 11], [40, 18, 59, 17, 48, 27, 20, 37, 50, 47, 56, 23, 41, 1, 7, 25, 19, 31, 30, 58, 11, 24, 32, 3, 35, 12, 26, 16, 15, 57, 43, 8], [16, 6, 13, 43, 39, 59, 8, 42, 40, 51, 52, 14, 60, 55, 48, 58, 2, 20, 37, 21, 23, 41, 33, 45, 36, 7, 19, 4, 32, 35, 12, 26], [50, 47, 23, 33, 58, 5, 45, 7, 25, 19, 44, 31, 29, 4, 11, 24, 32, 12, 26, 13, 43, 39, 8, 42, 38, 46, 40, 59, 18, 10, 14, 49, 22, 55, 28, 17, 48, 20], [32, 59, 3, 35, 57, 16, 13, 42, 18, 51, 52, 10, 54, 49, 53, 56, 22, 55, 28, 17, 2, 27, 37, 50, 34, 21, 23, 41, 33, 36, 31, 29, 4, 11], [52, 54, 58, 49, 56, 55, 28, 60, 17, 2, 20, 37, 34, 50, 21, 23, 1, 33, 45, 36, 7, 25, 19, 44, 31, 30, 4, 12, 26, 57, 39, 42, 46, 40, 18, 51], [15, 6, 13, 43, 39, 42, 38, 59, 46, 51, 52, 56, 28, 17, 48, 2, 9, 37, 50, 47, 23, 41, 1, 5, 7, 25, 19, 44, 31, 4, 24, 32, 12]], 44)
+inst = ColorInstance(60, 1062, [[21, 52, 34, 51, 12, 37, 27, 2, 40, 46, 17, 59, 28, 55, 11, 4, 30, 31, 19, 8, 25, 7, 60, 36, 39, 49, 6, 15, 54, 14], [26, 12, 37, 35, 9, 3, 27, 40, 48, 59, 1, 24, 28, 38, 4, 22, 31, 19, 8, 25, 7, 60, 56, 36, 53, 39, 5, 49, 33, 13, 6, 15, 58, 54, 41, 23, 14, 16, 47, 10, 21, 50, 34], [49, 13, 6, 15, 58, 54, 2, 23, 16, 47, 10, 21, 52, 34, 26, 37, 35, 9, 20, 27, 46, 17, 55, 11, 4, 42, 29, 31, 44, 8, 7, 36, 5, 43], [14, 57, 51, 26, 12, 37, 9, 27, 2, 59, 32, 24, 1, 38, 11, 22, 42, 30, 3, 44, 8, 7, 60, 56, 36, 53, 45, 5, 49, 13, 6, 15, 58], [47, 10, 52, 50, 57, 51, 26, 20, 27, 46, 48, 17, 32, 24, 28, 38, 11, 42, 30, 2, 29, 31, 44, 19, 25, 60, 36, 45, 39, 43, 49, 4, 23, 14, 3], [29, 31, 19, 3, 8, 7, 60, 56, 36, 45, 39, 49, 54, 41, 23, 16, 47, 21, 52, 34, 51, 26, 12, 37, 18, 20, 27, 40, 46, 2, 48, 32, 24, 28, 1, 11, 4], [6, 21, 52, 50, 34, 57, 51, 20, 27, 40, 48, 17, 59, 32, 38, 2, 55, 11, 22, 42, 30, 1, 19, 8, 25, 60, 56, 53, 4, 49, 13, 15, 3, 41, 23, 14], [6, 31, 44, 25, 56, 36, 53, 39, 49, 33, 13, 54, 41, 23, 14, 16, 47, 10, 21, 52, 50, 57, 26, 12, 2, 37, 18, 35, 9, 20, 27, 40, 1, 7, 4, 24, 3, 55, 22, 42], [51, 12, 37, 18, 2, 40, 46, 48, 17, 32, 24, 4, 28, 38, 11, 3, 42, 30, 29, 44, 19, 60, 8, 53, 39, 33, 13, 15, 54, 41, 23, 14, 10, 52, 50], [17, 32, 5, 38, 11, 3, 29, 44, 53, 8, 43, 49, 33, 13, 58, 54, 14, 16, 47, 21, 52, 34, 57, 26, 12, 37, 2, 27, 9, 40, 46, 48], [47, 10, 52, 50, 57, 51, 26, 12, 37, 18, 35, 20, 27, 40, 9, 46, 48, 17, 1, 5, 7, 28, 4, 55, 30, 3, 19, 36, 6, 43, 49, 33, 15, 58, 54], [45, 39, 43, 49, 2, 13, 9, 54, 1, 47, 21, 4, 52, 11, 50, 34, 57, 51, 26, 37, 18, 20, 27, 6, 8, 46, 48, 59, 32, 24, 28, 55, 10, 22, 30, 29, 31, 44, 25, 60, 56, 53], [3, 29, 19, 12, 25, 60, 56, 53, 39, 43, 8, 15, 58, 54, 14, 47, 52, 10, 34, 57, 26, 37, 27, 2, 9, 17, 32, 24, 28, 7, 38, 4, 22, 42, 30], [48, 17, 4, 32, 38, 42, 30, 13, 31, 19, 8, 25, 56, 43, 33, 10, 41, 47, 21, 52, 57, 51, 2, 9, 37, 18, 40, 1, 5, 7, 46], [31, 19, 25, 60, 36, 3, 53, 45, 39, 49, 33, 54, 13, 41, 23, 16, 47, 21, 50, 51, 18, 20, 27, 40, 48, 2, 9, 32, 24, 28, 38, 55, 1, 22, 7, 30, 4, 11], [25, 56, 39, 43, 49, 33, 3, 58, 41, 23, 15, 6, 47, 8, 52, 34, 18, 35, 10, 27, 40, 24, 2, 38, 55, 22, 30, 29, 44, 19], [10, 18, 14, 40, 59, 9, 24, 28, 55, 42, 1, 5, 30, 7, 29, 11, 19, 25, 60, 36, 3, 39, 43, 49, 58, 54, 13, 41, 23, 21, 52, 50, 57], [24, 17, 28, 9, 55, 22, 42, 29, 44, 19, 25, 36, 11, 53, 45, 43, 49, 58, 54, 12, 16, 15, 6, 21, 8, 52, 57, 51, 35, 20, 27, 14, 40, 46, 48, 59, 32], [15, 6, 13, 52, 50, 34, 57, 26, 18, 37, 35, 14, 27, 59, 32, 17, 28, 2, 9, 55, 22, 1, 5, 7, 60, 56, 36, 11, 53, 39, 33, 41, 16], [26, 37, 35, 27, 40, 46, 48, 59, 32, 5, 7, 24, 28, 11, 55, 22, 3, 12, 31, 25, 15, 56, 6, 53, 8, 45, 39, 49, 54, 18, 21, 52, 57, 51], [50, 1, 51, 7, 37, 3, 12, 48, 59, 32, 15, 6, 24, 8, 28, 38, 22, 42, 18, 29, 31, 44, 10, 25, 56, 36, 14, 53, 43, 49, 33, 58, 17, 41, 2, 20, 47], [27, 40, 46, 18, 32, 24, 38, 42, 30, 2, 31, 44, 20, 25, 36, 21, 53, 45, 39, 43, 7, 58, 19, 54, 4, 41, 23, 47, 12, 34, 57, 16, 15, 13, 8, 37], [52, 57, 51, 3, 37, 35, 16, 27, 15, 6, 8, 46, 48, 59, 32, 24, 28, 38, 55, 42, 29, 22, 60, 56, 36, 53, 17, 45, 39, 43, 2, 9, 58, 5, 7, 47], [18, 54, 41, 47, 22, 50, 57, 51, 17, 2, 20, 9, 35, 21, 27, 23, 5, 46, 48, 32, 4, 28, 55, 12, 42, 16, 15, 6, 13, 29, 31, 44, 8, 25, 60, 36, 53, 45, 49, 33], [16, 15, 13, 52, 8, 50, 34, 57, 18, 27, 40, 14, 48, 59, 22, 17, 38, 2, 20, 55, 21, 31, 1, 5, 7, 60, 53, 45, 43, 24, 49, 33, 54, 12, 41], [53, 2, 20, 54, 41, 5, 19, 4, 11, 52, 50, 34, 57, 3, 51, 12, 37, 35, 6, 13, 27, 8, 48, 59, 28, 10, 55, 42, 29, 44, 56, 36], [22, 37, 35, 2, 20, 46, 48, 23, 1, 5, 25, 7, 19, 28, 4, 11, 38, 24, 55, 42, 30, 3, 12, 26, 29, 44, 16, 36, 15, 6, 13, 53, 45, 8, 43, 49, 58, 54, 18, 10, 50, 34, 51], [18, 48, 59, 32, 17, 38, 2, 27, 20, 9, 42, 30, 21, 23, 31, 44, 1, 5, 60, 19, 45, 43, 11, 33, 24, 58, 54, 41, 12, 26, 47, 15, 6, 13, 34, 57, 51, 37], [6, 13, 47, 52, 50, 57, 18, 37, 10, 35, 32, 17, 27, 9, 38, 21, 42, 23, 30, 5, 31, 36, 24, 53, 39, 49, 3, 33, 12, 26, 58, 54, 16, 41], [41, 47, 50, 51, 14, 37, 22, 28, 17, 46, 48, 27, 9, 59, 32, 1, 5, 38, 55, 7, 29, 42, 4, 11, 44, 36, 12, 53, 39, 43, 49, 16, 15, 13], [15, 6, 8, 47, 50, 57, 14, 40, 48, 22, 59, 32, 28, 2, 20, 38, 55, 21, 42, 1, 5, 25, 29, 60, 36, 24, 39, 49, 33, 3, 12, 58], [58, 10, 54, 14, 41, 47, 22, 28, 52, 50, 34, 57, 20, 9, 21, 37, 35, 23, 5, 7, 40, 19, 31, 29, 30, 4, 46, 48, 24, 12, 38, 55, 42, 15, 6, 13, 60, 56, 53, 45, 39, 18, 33], [47, 34, 16, 57, 15, 8, 37, 35, 40, 46, 48, 59, 10, 14, 38, 28, 2, 9, 56, 36, 21, 53, 25, 19, 31, 29, 58, 54, 11, 41, 24, 32], [50, 51, 1, 33, 37, 7, 25, 19, 35, 32, 3, 12, 59, 26, 16, 6, 13, 38, 44, 53, 10, 45, 39, 58, 54, 41, 22, 28, 47, 2, 27, 52], [43, 49, 58, 54, 2, 27, 20, 41, 34, 23, 47, 33, 19, 29, 11, 51, 24, 32, 37, 3, 26, 16, 46, 48, 8, 38, 55, 18, 42, 44, 56, 36, 39], [15, 6, 52, 8, 37, 18, 46, 48, 59, 22, 17, 38, 2, 27, 21, 23, 1, 33, 5, 56, 19, 31, 29, 53, 30, 4, 39, 11, 43, 49, 24, 58, 54, 3, 35, 26], [51, 2, 27, 20, 9, 34, 21, 23, 40, 1, 33, 46, 36, 48, 19, 29, 59, 30, 4, 11, 32, 3, 35, 55, 12, 26, 42, 6, 13, 44, 8, 60, 56, 53, 45, 39, 43, 49, 58, 10, 14, 22, 28], [42, 44, 10, 60, 14, 39, 43, 22, 54, 28, 2, 27, 9, 47, 34, 21, 23, 50, 57, 33, 5, 51, 36, 7, 25, 31, 29, 30, 4, 32, 35, 40, 46, 16, 15, 13], [12, 44, 60, 56, 16, 15, 6, 13, 43, 8, 38, 54, 47, 50, 57, 22, 17, 2, 20, 9, 40, 37, 34, 46, 48, 59, 23, 1, 5, 36, 19, 31, 29, 30, 32, 42, 35], [55, 22, 17, 2, 20, 9, 37, 56, 53, 45, 1, 33, 7, 25, 31, 11, 32, 52, 16, 57, 15, 6, 39, 8, 38, 18, 59, 10, 14], [30, 24, 50, 32, 51, 35, 26, 16, 15, 6, 8, 55, 14, 44, 22, 60, 56, 28, 17, 53, 45, 43, 2, 9, 34, 58, 54, 21, 33, 7, 25, 19, 29, 47], [38, 18, 60, 56, 53, 45, 14, 43, 58, 22, 28, 17, 27, 9, 37, 52, 50, 21, 57, 23, 5, 7, 31, 29, 30, 4, 24, 32, 3, 46, 35, 48, 26, 59, 13, 39, 8], [35, 12, 44, 60, 56, 16, 53, 45, 13, 39, 42, 54, 38, 18, 47, 10, 52, 14, 50, 57, 22, 28, 17, 27, 37, 48, 21, 23, 41, 5, 36, 25, 30, 55, 11, 3], [43, 39, 8, 47, 38, 50, 57, 18, 10, 46, 48, 22, 59, 28, 27, 9, 37, 34, 21, 41, 5, 30, 4, 60, 24, 53, 49, 3, 35, 12, 26, 54, 16], [12, 52, 15, 6, 57, 43, 42, 40, 18, 59, 22, 28, 27, 20, 37, 34, 56, 23, 41, 53, 5, 25, 4, 24, 32], [22, 27, 20, 60, 9, 37, 53, 49, 23, 1, 33, 5, 54, 36, 44, 30, 11, 24, 32, 52, 3, 35, 12, 57, 6, 39, 42, 38, 48, 59, 18, 10, 14], [52, 33, 50, 5, 57, 44, 31, 51, 29, 30, 11, 24, 32, 3, 35, 12, 48, 16, 15, 6, 13, 43, 39, 8, 38, 55, 10, 14, 60, 53, 49, 22, 28, 54, 2, 34, 21, 23, 41], [14, 28, 2, 27, 20, 9, 37, 21, 47, 23, 55, 33, 5, 36, 7, 25, 44, 31, 30, 11, 24, 32, 60, 56, 35, 12, 53, 26, 49, 15, 6, 43, 39, 42, 46, 50, 18, 57, 51, 10], [3, 35, 12, 59, 16, 15, 6, 8, 46, 18, 10, 58, 17, 48, 27, 2, 20, 37, 52, 21, 47, 57, 51, 1, 5, 36, 7, 25, 44, 31, 29, 30, 4, 11, 24], [34, 21, 57, 47, 51, 41, 5, 7, 25, 19, 44, 31, 29, 30, 11, 24, 32, 12, 59, 26, 15, 43, 39, 55, 8, 42, 38, 60, 53, 58, 54, 17, 48, 2, 27, 9, 52], [9, 37, 34, 50, 21, 47, 23, 41, 1, 5, 7, 30, 4, 11, 24, 60, 56, 35, 53, 12, 26, 58, 15, 6, 38, 52, 18, 14, 49, 28, 48, 59, 27, 20], [59, 47, 23, 1, 5, 45, 36, 7, 25, 19, 29, 11, 32, 3, 12, 26, 60, 56, 16, 53, 6, 13, 43, 8, 58, 42, 46, 40, 18, 51, 10, 14, 49, 17, 20, 9, 34, 50], [26, 15, 13, 43, 8, 42, 46, 40, 18, 51, 52, 10, 22, 58, 54, 48, 2, 27, 20, 9, 37, 34, 50, 21, 47, 23, 41, 33, 45, 36, 7, 25, 19, 44, 29, 30, 4, 24, 32, 12], [24, 32, 59, 3, 35, 12, 26, 15, 6, 13, 43, 39, 8, 38, 46, 18, 10, 58, 53, 22, 28, 17, 2, 27, 20, 9, 34, 50, 47, 41, 1, 33, 36, 25, 44, 29, 11], [40, 18, 59, 17, 48, 27, 20, 37, 50, 47, 56, 23, 41, 1, 7, 25, 19, 31, 30, 58, 11, 24, 32, 3, 35, 12, 26, 16, 15, 57, 43, 8], [16, 6, 13, 43, 39, 59, 8, 42, 40, 51, 52, 14, 60, 55, 48, 58, 2, 20, 37, 21, 23, 41, 33, 45, 36, 7, 19, 4, 32, 35, 12, 26], [50, 47, 23, 33, 58, 5, 45, 7, 25, 19, 44, 31, 29, 4, 11, 24, 32, 12, 26, 13, 43, 39, 8, 42, 38, 46, 40, 59, 18, 10, 14, 49, 22, 55, 28, 17, 48, 20], [32, 59, 3, 35, 57, 16, 13, 42, 18, 51, 52, 10, 54, 49, 53, 56, 22, 55, 28, 17, 2, 27, 37, 50, 34, 21, 23, 41, 33, 36, 31, 29, 4, 11], [52, 54, 58, 49, 56, 55, 28, 60, 17, 2, 20, 37, 34, 50, 21, 23, 1, 33, 45, 36, 7, 25, 19, 44, 31, 30, 4, 12, 26, 57, 39, 42, 46, 40, 18, 51], [15, 6, 13, 43, 39, 42, 38, 59, 46, 51, 52, 56, 28, 17, 48, 2, 9, 37, 50, 47, 23, 41, 1, 5, 7, 25, 19, 44, 31, 4, 24, 32, 12]], 44)
+initial_solution = ColorSolution([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 1062, [60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 1, 1062001)
+Final local search value : -16 (budget: 99924340)
+Updated best global: -1062001 -> -16
+New random solution value: -1062001
+Final local search value : -16 (budget: 99841747)
+New random solution value: -1062001
+Final local search value : -16 (budget: 99768305)
+New random solution value: -1062001
+Final local search value : -15 (budget: 99682334)
+Updated best global: -16 -> -15
+New random solution value: -1062001
+Final local search value : -15 (budget: 99607135)
+New random solution value: -1062001
+Final local search value : -17 (budget: 99529484)
+New random solution value: -1062001
+Final local search value : -16 (budget: 99450852)
+New random solution value: -1062001
+Final local search value : -15 (budget: 99381643)
+New random solution value: -1062001
+Final local search value : -16 (budget: 99305432)
+New random solution value: -1062001
+Final local search value : -15 (budget: 99217841)
+New random solution value: -1062001
+Final local search value : -17 (budget: 99133470)
+New random solution value: -1062001
+Final local search value : -15 (budget: 99047782)
+New random solution value: -1062001
+Final local search value : -15 (budget: 98968335)
+New random solution value: -1062001
+Final local search value : -16 (budget: 98883176)
+New random solution value: -1062001
+Final local search value : -16 (budget: 98803719)
+New random solution value: -1062001
+Final local search value : -16 (budget: 98727849)
+New random solution value: -1062001
+Final local search value : -15 (budget: 98649661)
+New random solution value: -1062001
+Final local search value : -15 (budget: 98576815)
+New random solution value: -1062001
+Final local search value : -16 (budget: 98498156)
+New random solution value: -1062001
+Final local search value : -15 (budget: 98426658)
+New random solution value: -1062001
+Final local search value : -17 (budget: 98349606)
+New random solution value: -1062001
+Final local search value : -15 (budget: 98270851)
+New random solution value: -1062001
+Final local search value : -17 (budget: 98189062)
+New random solution value: -1062001
+Final local search value : -15 (budget: 98107000)
+New random solution value: -1062001
+Final local search value : -15 (budget: 98031517)
+New random solution value: -1062001
+Final local search value : -16 (budget: 97953818)
+New random solution value: -1062001
+Final local search value : -16 (budget: 97874640)
+New random solution value: -1062001
+Final local search value : -16 (budget: 97800606)
+New random solution value: -1062001
+Final local search value : -17 (budget: 97715044)
+New random solution value: -1062001
+Final local search value : -15 (budget: 97635072)
+New random solution value: -1062001
+Final local search value : -15 (budget: 97560354)
+New random solution value: -1062001
+Final local search value : -15 (budget: 97480519)
+New random solution value: -1062001
+Final local search value : -15 (budget: 97398067)
+New random solution value: -1062001
+Final local search value : -17 (budget: 97322306)
+New random solution value: -1062001
+Final local search value : -14 (budget: 97244380)
+Updated best global: -15 -> -14
+New random solution value: -1062001
+Final local search value : -15 (budget: 97175024)
+New random solution value: -1062001
+Final local search value : -16 (budget: 97090480)
+New random solution value: -1062001
+Final local search value : -16 (budget: 97012829)
+New random solution value: -1062001
+Final local search value : -16 (budget: 96935072)
+New random solution value: -1062001
+Final local search value : -16 (budget: 96859330)
+New random solution value: -1062001
+Final local search value : -16 (budget: 96781004)
+New random solution value: -1062001
+Final local search value : -16 (budget: 96696786)
+New random solution value: -1062001
+Final local search value : -16 (budget: 96617343)
+New random solution value: -1062001
+Final local search value : -14 (budget: 96542313)
+New random solution value: -1062001
+Final local search value : -15 (budget: 96463282)
+New random solution value: -1062001
+Final local search value : -17 (budget: 96383800)
+New random solution value: -1062001
+Final local search value : -15 (budget: 96306164)
+New random solution value: -1062001
+Final local search value : -15 (budget: 96225399)
+New random solution value: -1062001
+Final local search value : -15 (budget: 96149006)
+New random solution value: -1062001
+Final local search value : -15 (budget: 96069790)
+New random solution value: -1062001
+Final local search value : -16 (budget: 95994611)
+New random solution value: -1062001
+Final local search value : -16 (budget: 95913553)
+New random solution value: -1062001
+Final local search value : -16 (budget: 95831703)
+New random solution value: -1062001
+Final local search value : -16 (budget: 95754532)
+New random solution value: -1062001
+Final local search value : -16 (budget: 95679349)
+New random solution value: -1062001
+Final local search value : -16 (budget: 95593952)
+New random solution value: -1062001
+Final local search value : -16 (budget: 95515295)
+New random solution value: -1062001
+Final local search value : -16 (budget: 95433146)
+New random solution value: -1062001
+Final local search value : -15 (budget: 95347293)
+New random solution value: -1062001
+Final local search value : -16 (budget: 95261410)
+New random solution value: -1062001
+Final local search value : -15 (budget: 95185022)
+New random solution value: -1062001
+Final local search value : -16 (budget: 95105112)
+New random solution value: -1062001
+Final local search value : -17 (budget: 95026232)
+New random solution value: -1062001
+Final local search value : -15 (budget: 94950847)
+New random solution value: -1062001
+Final local search value : -15 (budget: 94874661)
+New random solution value: -1062001
+Final local search value : -15 (budget: 94792933)
+New random solution value: -1062001
+Final local search value : -15 (budget: 94713069)
+New random solution value: -1062001
+Final local search value : -15 (budget: 94641376)
+New random solution value: -1062001
+Final local search value : -15 (budget: 94569853)
+New random solution value: -1062001
+Final local search value : -15 (budget: 94489118)
+New random solution value: -1062001
+Final local search value : -15 (budget: 94413083)
+New random solution value: -1062001
+Final local search value : -17 (budget: 94336722)
+New random solution value: -1062001
+Final local search value : -15 (budget: 94265625)
+New random solution value: -1062001
+Final local search value : -15 (budget: 94196321)
+New random solution value: -1062001
+Final local search value : -15 (budget: 94115752)
+New random solution value: -1062001
+Final local search value : -17 (budget: 94033806)
+New random solution value: -1062001
+Final local search value : -15 (budget: 93951239)
+New random solution value: -1062001
+Final local search value : -15 (budget: 93874755)
+New random solution value: -1062001
+Final local search value : -15 (budget: 93802640)
+New random solution value: -1062001
+Final local search value : -16 (budget: 93717855)
+New random solution value: -1062001
+Final local search value : -16 (budget: 93632840)
+New random solution value: -1062001
+Final local search value : -17 (budget: 93547444)
+New random solution value: -1062001
+Final local search value : -14 (budget: 93473940)
+New random solution value: -1062001
+Final local search value : -14 (budget: 93401655)
+New random solution value: -1062001
+Final local search value : -15 (budget: 93322358)
+New random solution value: -1062001
+Final local search value : -16 (budget: 93236500)
+New random solution value: -1062001
+Final local search value : -16 (budget: 93155016)
+New random solution value: -1062001
+Final local search value : -16 (budget: 93074324)
+New random solution value: -1062001
+Final local search value : -16 (budget: 92993404)
+New random solution value: -1062001
+Final local search value : -15 (budget: 92918909)
+New random solution value: -1062001
+Final local search value : -17 (budget: 92836476)
+New random solution value: -1062001
+Final local search value : -15 (budget: 92767874)
+New random solution value: -1062001
+Final local search value : -16 (budget: 92687379)
+New random solution value: -1062001
+Final local search value : -16 (budget: 92613799)
+New random solution value: -1062001
+Final local search value : -16 (budget: 92531706)
+New random solution value: -1062001
+Final local search value : -16 (budget: 92451814)
+New random solution value: -1062001
+Final local search value : -15 (budget: 92379989)
+New random solution value: -1062001
+Final local search value : -15 (budget: 92301376)
+New random solution value: -1062001
+Final local search value : -16 (budget: 92217952)
+New random solution value: -1062001
+Final local search value : -15 (budget: 92146880)
+New random solution value: -1062001
+Final local search value : -16 (budget: 92065629)
+New random solution value: -1062001
+Final local search value : -16 (budget: 91988456)
+New random solution value: -1062001
+Final local search value : -16 (budget: 91914450)
+New random solution value: -1062001
+Final local search value : -15 (budget: 91840981)
+New random solution value: -1062001
+Final local search value : -16 (budget: 91769009)
+New random solution value: -1062001
+Final local search value : -15 (budget: 91691245)
+New random solution value: -1062001
+Final local search value : -16 (budget: 91604724)
+New random solution value: -1062001
+Final local search value : -15 (budget: 91533036)
+New random solution value: -1062001
+Final local search value : -16 (budget: 91454405)
+New random solution value: -1062001
+Final local search value : -16 (budget: 91374602)
+New random solution value: -1062001
+Final local search value : -15 (budget: 91295381)
+New random solution value: -1062001
+Final local search value : -16 (budget: 91215926)
+New random solution value: -1062001
+Final local search value : -16 (budget: 91136308)
+New random solution value: -1062001
+Final local search value : -16 (budget: 91056148)
+New random solution value: -1062001
+Final local search value : -17 (budget: 90965390)
+New random solution value: -1062001
+Final local search value : -15 (budget: 90894571)
+New random solution value: -1062001
+Final local search value : -16 (budget: 90815099)
+New random solution value: -1062001
+Final local search value : -16 (budget: 90731079)
+New random solution value: -1062001
+Final local search value : -15 (budget: 90658644)
+New random solution value: -1062001
+Final local search value : -16 (budget: 90584419)
+New random solution value: -1062001
+Final local search value : -16 (budget: 90503666)
+New random solution value: -1062001
+Final local search value : -16 (budget: 90426915)
+New random solution value: -1062001
+Final local search value : -15 (budget: 90353000)
+New random solution value: -1062001
+Final local search value : -16 (budget: 90279039)
+New random solution value: -1062001
+Final local search value : -14 (budget: 90204741)
+New random solution value: -1062001
+Final local search value : -16 (budget: 90128684)
+New random solution value: -1062001
+Final local search value : -15 (budget: 90046052)
+New random solution value: -1062001
+Final local search value : -16 (budget: 89963825)
+New random solution value: -1062001
+Final local search value : -15 (budget: 89883536)
+New random solution value: -1062001
+Final local search value : -16 (budget: 89808231)
+New random solution value: -1062001
+Final local search value : -16 (budget: 89723966)
+New random solution value: -1062001
+Final local search value : -15 (budget: 89649384)
+New random solution value: -1062001
+Final local search value : -15 (budget: 89576783)
+New random solution value: -1062001
+Final local search value : -15 (budget: 89498819)
+New random solution value: -1062001
+Final local search value : -15 (budget: 89422726)
+New random solution value: -1062001
+Final local search value : -16 (budget: 89346031)
+New random solution value: -1062001
+Final local search value : -15 (budget: 89271847)
+New random solution value: -1062001
+Final local search value : -16 (budget: 89200555)
+New random solution value: -1062001
+Final local search value : -16 (budget: 89126372)
+New random solution value: -1062001
+Final local search value : -17 (budget: 89048494)
+New random solution value: -1062001
+Final local search value : -15 (budget: 88971475)
+New random solution value: -1062001
+Final local search value : -15 (budget: 88895923)
+New random solution value: -1062001
+Final local search value : -15 (budget: 88809400)
+New random solution value: -1062001
+Final local search value : -16 (budget: 88733484)
+New random solution value: -1062001
+Final local search value : -16 (budget: 88657931)
+New random solution value: -1062001
+Final local search value : -15 (budget: 88579213)
+New random solution value: -1062001
+Final local search value : -15 (budget: 88505861)
+New random solution value: -1062001
+Final local search value : -13 (budget: 88438000)
+Updated best global: -14 -> -13
+New random solution value: -1062001
+Final local search value : -17 (budget: 88351210)
+New random solution value: -1062001
+Final local search value : -15 (budget: 88278563)
+New random solution value: -1062001
+Final local search value : -16 (budget: 88203625)
+New random solution value: -1062001
+Final local search value : -16 (budget: 88126928)
+New random solution value: -1062001
+Final local search value : -15 (budget: 88044629)
+New random solution value: -1062001
+Final local search value : -14 (budget: 87976390)
+New random solution value: -1062001
+Final local search value : -15 (budget: 87896777)
+New random solution value: -1062001
+Final local search value : -16 (budget: 87816044)
+New random solution value: -1062001
+Final local search value : -16 (budget: 87739166)
+New random solution value: -1062001
+Final local search value : -15 (budget: 87662621)
+New random solution value: -1062001
+Final local search value : -16 (budget: 87596409)
+New random solution value: -1062001
+Final local search value : -15 (budget: 87516465)
+New random solution value: -1062001
+Final local search value : -14 (budget: 87437480)
+New random solution value: -1062001
+Final local search value : -15 (budget: 87346235)
+New random solution value: -1062001
+Final local search value : -15 (budget: 87275422)
+New random solution value: -1062001
+Final local search value : -15 (budget: 87198055)
+New random solution value: -1062001
+Final local search value : -17 (budget: 87120508)
+New random solution value: -1062001
+Final local search value : -15 (budget: 87037248)
+New random solution value: -1062001
+Final local search value : -16 (budget: 86949261)
+New random solution value: -1062001
+Final local search value : -15 (budget: 86870759)
+New random solution value: -1062001
+Final local search value : -16 (budget: 86790681)
+New random solution value: -1062001
+Final local search value : -15 (budget: 86716207)
+New random solution value: -1062001
+Final local search value : -15 (budget: 86637124)
+New random solution value: -1062001
+Final local search value : -16 (budget: 86562106)
+New random solution value: -1062001
+Final local search value : -14 (budget: 86482533)
+New random solution value: -1062001
+Final local search value : -16 (budget: 86405344)
+New random solution value: -1062001
+Final local search value : -16 (budget: 86324681)
+New random solution value: -1062001
+Final local search value : -14 (budget: 86247723)
+New random solution value: -1062001
+Final local search value : -15 (budget: 86172014)
+New random solution value: -1062001
+Final local search value : -16 (budget: 86095207)
+New random solution value: -1062001
+Final local search value : -16 (budget: 86015000)
+New random solution value: -1062001
+Final local search value : -16 (budget: 85933376)
+New random solution value: -1062001
+Final local search value : -16 (budget: 85856562)
+New random solution value: -1062001
+Final local search value : -15 (budget: 85784508)
+New random solution value: -1062001
+Final local search value : -18 (budget: 85702308)
+New random solution value: -1062001
+Final local search value : -16 (budget: 85624958)
+New random solution value: -1062001
+Final local search value : -15 (budget: 85553738)
+New random solution value: -1062001
+Final local search value : -16 (budget: 85464021)
+New random solution value: -1062001
+Final local search value : -15 (budget: 85391649)
+New random solution value: -1062001
+Final local search value : -15 (budget: 85314605)
+New random solution value: -1062001
+Final local search value : -14 (budget: 85239383)
+New random solution value: -1062001
+Final local search value : -15 (budget: 85159958)
+New random solution value: -1062001
+Final local search value : -16 (budget: 85079954)
+New random solution value: -1062001
+Final local search value : -15 (budget: 85004345)
+New random solution value: -1062001
+Final local search value : -16 (budget: 84934204)
+New random solution value: -1062001
+Final local search value : -15 (budget: 84859037)
+New random solution value: -1062001
+Final local search value : -15 (budget: 84778200)
+New random solution value: -1062001
+Final local search value : -16 (budget: 84699078)
+New random solution value: -1062001
+Final local search value : -16 (budget: 84624183)
+New random solution value: -1062001
+Final local search value : -16 (budget: 84554748)
+New random solution value: -1062001
+Final local search value : -15 (budget: 84479086)
+New random solution value: -1062001
+Final local search value : -15 (budget: 84403269)
+New random solution value: -1062001
+Final local search value : -17 (budget: 84314610)
+New random solution value: -1062001
+Final local search value : -16 (budget: 84239235)
+New random solution value: -1062001
+Final local search value : -15 (budget: 84159763)
+New random solution value: -1062001
+Final local search value : -15 (budget: 84077414)
+New random solution value: -1062001
+Final local search value : -16 (budget: 84002507)
+New random solution value: -1062001
+Final local search value : -15 (budget: 83935745)
+New random solution value: -1062001
+Final local search value : -16 (budget: 83859588)
+New random solution value: -1062001
+Final local search value : -16 (budget: 83778719)
+New random solution value: -1062001
+Final local search value : -15 (budget: 83705942)
+New random solution value: -1062001
+Final local search value : -15 (budget: 83629959)
+New random solution value: -1062001
+Final local search value : -16 (budget: 83551075)
+New random solution value: -1062001
+Final local search value : -16 (budget: 83467572)
+New random solution value: -1062001
+Final local search value : -16 (budget: 83386962)
+New random solution value: -1062001
+Final local search value : -16 (budget: 83315934)
+New random solution value: -1062001
+Final local search value : -16 (budget: 83241071)
+New random solution value: -1062001
+Final local search value : -16 (budget: 83163358)
+New random solution value: -1062001
+Final local search value : -17 (budget: 83082311)
+New random solution value: -1062001
+Final local search value : -15 (budget: 83003997)
+New random solution value: -1062001
+Final local search value : -16 (budget: 82916336)
+New random solution value: -1062001
+Final local search value : -14 (budget: 82846036)
+New random solution value: -1062001
+Final local search value : -16 (budget: 82764949)
+New random solution value: -1062001
+Final local search value : -14 (budget: 82677331)
+New random solution value: -1062001
+Final local search value : -16 (budget: 82599603)
+New random solution value: -1062001
+Final local search value : -15 (budget: 82523113)
+New random solution value: -1062001
+Final local search value : -16 (budget: 82455899)
+New random solution value: -1062001
+Final local search value : -15 (budget: 82377221)
+New random solution value: -1062001
+Final local search value : -16 (budget: 82293353)
+New random solution value: -1062001
+Final local search value : -16 (budget: 82208168)
+New random solution value: -1062001
+Final local search value : -15 (budget: 82129262)
+New random solution value: -1062001
+Final local search value : -17 (budget: 82045293)
+New random solution value: -1062001
+Final local search value : -16 (budget: 81960272)
+New random solution value: -1062001
+Final local search value : -16 (budget: 81883427)
+New random solution value: -1062001
+Final local search value : -15 (budget: 81808776)
+New random solution value: -1062001
+Final local search value : -15 (budget: 81732183)
+New random solution value: -1062001
+Final local search value : -15 (budget: 81656121)
+New random solution value: -1062001
+Final local search value : -16 (budget: 81579988)
+New random solution value: -1062001
+Final local search value : -14 (budget: 81512856)
+New random solution value: -1062001
+Final local search value : -16 (budget: 81432530)
+New random solution value: -1062001
+Final local search value : -15 (budget: 81347008)
+New random solution value: -1062001
+Final local search value : -16 (budget: 81271488)
+New random solution value: -1062001
+Final local search value : -17 (budget: 81189912)
+New random solution value: -1062001
+Final local search value : -15 (budget: 81114038)
+New random solution value: -1062001
+Final local search value : -16 (budget: 81032229)
+New random solution value: -1062001
+Final local search value : -16 (budget: 80949892)
+New random solution value: -1062001
+Final local search value : -16 (budget: 80874340)
+New random solution value: -1062001
+Final local search value : -14 (budget: 80805681)
+New random solution value: -1062001
+Final local search value : -14 (budget: 80726695)
+New random solution value: -1062001
+Final local search value : -16 (budget: 80646202)
+New random solution value: -1062001
+Final local search value : -15 (budget: 80571950)
+New random solution value: -1062001
+Final local search value : -15 (budget: 80497289)
+New random solution value: -1062001
+Final local search value : -15 (budget: 80424037)
+New random solution value: -1062001
+Final local search value : -16 (budget: 80348280)
+New random solution value: -1062001
+Final local search value : -16 (budget: 80266548)
+New random solution value: -1062001
+Final local search value : -16 (budget: 80177251)
+New random solution value: -1062001
+Final local search value : -16 (budget: 80097585)
+New random solution value: -1062001
+Final local search value : -16 (budget: 80017639)
+New random solution value: -1062001
+Final local search value : -15 (budget: 79940442)
+New random solution value: -1062001
+Final local search value : -16 (budget: 79856418)
+New random solution value: -1062001
+Final local search value : -16 (budget: 79770574)
+New random solution value: -1062001
+Final local search value : -15 (budget: 79698052)
+New random solution value: -1062001
+Final local search value : -16 (budget: 79618027)
+New random solution value: -1062001
+Final local search value : -15 (budget: 79545638)
+New random solution value: -1062001
+Final local search value : -16 (budget: 79456603)
+New random solution value: -1062001
+Final local search value : -17 (budget: 79373104)
+New random solution value: -1062001
+Final local search value : -15 (budget: 79300173)
+New random solution value: -1062001
+Final local search value : -16 (budget: 79217165)
+New random solution value: -1062001
+Final local search value : -16 (budget: 79143697)
+New random solution value: -1062001
+Final local search value : -15 (budget: 79059837)
+New random solution value: -1062001
+Final local search value : -16 (budget: 78976105)
+New random solution value: -1062001
+Final local search value : -17 (budget: 78887310)
+New random solution value: -1062001
+Final local search value : -17 (budget: 78800513)
+New random solution value: -1062001
+Final local search value : -17 (budget: 78724362)
+New random solution value: -1062001
+Final local search value : -16 (budget: 78648791)
+New random solution value: -1062001
+Final local search value : -14 (budget: 78578168)
+New random solution value: -1062001
+Final local search value : -14 (budget: 78504471)
+New random solution value: -1062001
+Final local search value : -17 (budget: 78417780)
+New random solution value: -1062001
+Final local search value : -15 (budget: 78339189)
+New random solution value: -1062001
+Final local search value : -16 (budget: 78260787)
+New random solution value: -1062001
+Final local search value : -16 (budget: 78181014)
+New random solution value: -1062001
+Final local search value : -16 (budget: 78099529)
+New random solution value: -1062001
+Final local search value : -15 (budget: 78024203)
+New random solution value: -1062001
+Final local search value : -16 (budget: 77943524)
+New random solution value: -1062001
+Final local search value : -16 (budget: 77872827)
+New random solution value: -1062001
+Final local search value : -14 (budget: 77804772)
+New random solution value: -1062001
+Final local search value : -15 (budget: 77725072)
+New random solution value: -1062001
+Final local search value : -15 (budget: 77648429)
+New random solution value: -1062001
+Final local search value : -16 (budget: 77573974)
+New random solution value: -1062001
+Final local search value : -16 (budget: 77495402)
+New random solution value: -1062001
+Final local search value : -16 (budget: 77420126)
+New random solution value: -1062001
+Final local search value : -16 (budget: 77338423)
+New random solution value: -1062001
+Final local search value : -16 (budget: 77259256)
+New random solution value: -1062001
+Final local search value : -16 (budget: 77180344)
+New random solution value: -1062001
+Final local search value : -16 (budget: 77103346)
+New random solution value: -1062001
+Final local search value : -16 (budget: 77025792)
+New random solution value: -1062001
+Final local search value : -16 (budget: 76941691)
+New random solution value: -1062001
+Final local search value : -16 (budget: 76857343)
+New random solution value: -1062001
+Final local search value : -16 (budget: 76782938)
+New random solution value: -1062001
+Final local search value : -17 (budget: 76696918)
+New random solution value: -1062001
+Final local search value : -16 (budget: 76624332)
+New random solution value: -1062001
+Final local search value : -16 (budget: 76549524)
+New random solution value: -1062001
+Final local search value : -15 (budget: 76471845)
+New random solution value: -1062001
+Final local search value : -16 (budget: 76386487)
+New random solution value: -1062001
+Final local search value : -15 (budget: 76310121)
+New random solution value: -1062001
+Final local search value : -17 (budget: 76229100)
+New random solution value: -1062001
+Final local search value : -15 (budget: 76146081)
+New random solution value: -1062001
+Final local search value : -17 (budget: 76062925)
+New random solution value: -1062001
+Final local search value : -16 (budget: 75985671)
+New random solution value: -1062001
+Final local search value : -16 (budget: 75911305)
+New random solution value: -1062001
+Final local search value : -16 (budget: 75830024)
+New random solution value: -1062001
+Final local search value : -16 (budget: 75754602)
+New random solution value: -1062001
+Final local search value : -15 (budget: 75671328)
+New random solution value: -1062001
+Final local search value : -16 (budget: 75591331)
+New random solution value: -1062001
+Final local search value : -15 (budget: 75519305)
+New random solution value: -1062001
+Final local search value : -15 (budget: 75447981)
+New random solution value: -1062001
+Final local search value : -15 (budget: 75368339)
+New random solution value: -1062001
+Final local search value : -16 (budget: 75289425)
+New random solution value: -1062001
+Final local search value : -16 (budget: 75204265)
+New random solution value: -1062001
+Final local search value : -15 (budget: 75125102)
+New random solution value: -1062001
+Final local search value : -16 (budget: 75048432)
+New random solution value: -1062001
+Final local search value : -16 (budget: 74973698)
+New random solution value: -1062001
+Final local search value : -16 (budget: 74893279)
+New random solution value: -1062001
+Final local search value : -15 (budget: 74813431)
+New random solution value: -1062001
+Final local search value : -16 (budget: 74729855)
+New random solution value: -1062001
+Final local search value : -16 (budget: 74649250)
+New random solution value: -1062001
+Final local search value : -15 (budget: 74580133)
+New random solution value: -1062001
+Final local search value : -18 (budget: 74497055)
+New random solution value: -1062001
+Final local search value : -16 (budget: 74418361)
+New random solution value: -1062001
+Final local search value : -16 (budget: 74337239)
+New random solution value: -1062001
+Final local search value : -16 (budget: 74260334)
+New random solution value: -1062001
+Final local search value : -15 (budget: 74179187)
+New random solution value: -1062001
+Final local search value : -15 (budget: 74106502)
+New random solution value: -1062001
+Final local search value : -15 (budget: 74024015)
+New random solution value: -1062001
+Final local search value : -16 (budget: 73941530)
+New random solution value: -1062001
+Final local search value : -15 (budget: 73869767)
+New random solution value: -1062001
+Final local search value : -15 (budget: 73798818)
+New random solution value: -1062001
+Final local search value : -16 (budget: 73724270)
+New random solution value: -1062001
+Final local search value : -15 (budget: 73642672)
+New random solution value: -1062001
+Final local search value : -16 (budget: 73561915)
+New random solution value: -1062001
+Final local search value : -16 (budget: 73484574)
+New random solution value: -1062001
+Final local search value : -16 (budget: 73412292)
+New random solution value: -1062001
+Final local search value : -16 (budget: 73334808)
+New random solution value: -1062001
+Final local search value : -15 (budget: 73254795)
+New random solution value: -1062001
+Final local search value : -16 (budget: 73177887)
+New random solution value: -1062001
+Final local search value : -16 (budget: 73099095)
+New random solution value: -1062001
+Final local search value : -17 (budget: 73014844)
+New random solution value: -1062001
+Final local search value : -16 (budget: 72935141)
+New random solution value: -1062001
+Final local search value : -16 (budget: 72854446)
+New random solution value: -1062001
+Final local search value : -16 (budget: 72777317)
+New random solution value: -1062001
+Final local search value : -15 (budget: 72697726)
+New random solution value: -1062001
+Final local search value : -16 (budget: 72624496)
+New random solution value: -1062001
+Final local search value : -16 (budget: 72542596)
+New random solution value: -1062001
+Final local search value : -14 (budget: 72469264)
+New random solution value: -1062001
+Final local search value : -15 (budget: 72391799)
+New random solution value: -1062001
+Final local search value : -17 (budget: 72313470)
+New random solution value: -1062001
+Final local search value : -14 (budget: 72238484)
+New random solution value: -1062001
+Final local search value : -15 (budget: 72164753)
+New random solution value: -1062001
+Final local search value : -16 (budget: 72088827)
+New random solution value: -1062001
+Final local search value : -15 (budget: 72009303)
+New random solution value: -1062001
+Final local search value : -16 (budget: 71926911)
+New random solution value: -1062001
+Final local search value : -17 (budget: 71835161)
+New random solution value: -1062001
+Final local search value : -16 (budget: 71758833)
+New random solution value: -1062001
+Final local search value : -16 (budget: 71678206)
+New random solution value: -1062001
+Final local search value : -16 (budget: 71601407)
+New random solution value: -1062001
+Final local search value : -15 (budget: 71530064)
+New random solution value: -1062001
+Final local search value : -16 (budget: 71452354)
+New random solution value: -1062001
+Final local search value : -16 (budget: 71375063)
+New random solution value: -1062001
+Final local search value : -17 (budget: 71293185)
+New random solution value: -1062001
+Final local search value : -16 (budget: 71204914)
+New random solution value: -1062001
+Final local search value : -16 (budget: 71118626)
+New random solution value: -1062001
+Final local search value : -16 (budget: 71042366)
+New random solution value: -1062001
+Final local search value : -17 (budget: 70969868)
+New random solution value: -1062001
+Final local search value : -17 (budget: 70889479)
+New random solution value: -1062001
+Final local search value : -15 (budget: 70806722)
+New random solution value: -1062001
+Final local search value : -16 (budget: 70728498)
+New random solution value: -1062001
+Final local search value : -16 (budget: 70658131)
+New random solution value: -1062001
+Final local search value : -16 (budget: 70580347)
+New random solution value: -1062001
+Final local search value : -16 (budget: 70498441)
+New random solution value: -1062001
+Final local search value : -16 (budget: 70418236)
+New random solution value: -1062001
+Final local search value : -15 (budget: 70339875)
+New random solution value: -1062001
+Final local search value : -16 (budget: 70261541)
+New random solution value: -1062001
+Final local search value : -15 (budget: 70184321)
+New random solution value: -1062001
+Final local search value : -15 (budget: 70110166)
+New random solution value: -1062001
+Final local search value : -16 (budget: 70034388)
+New random solution value: -1062001
+Final local search value : -16 (budget: 69956115)
+New random solution value: -1062001
+Final local search value : -15 (budget: 69875131)
+New random solution value: -1062001
+Final local search value : -15 (budget: 69798390)
+New random solution value: -1062001
+Final local search value : -16 (budget: 69722899)
+New random solution value: -1062001
+Final local search value : -15 (budget: 69644980)
+New random solution value: -1062001
+Final local search value : -15 (budget: 69562236)
+New random solution value: -1062001
+Final local search value : -15 (budget: 69490151)
+New random solution value: -1062001
+Final local search value : -17 (budget: 69410422)
+New random solution value: -1062001
+Final local search value : -16 (budget: 69333728)
+New random solution value: -1062001
+Final local search value : -17 (budget: 69255541)
+New random solution value: -1062001
+Final local search value : -14 (budget: 69180778)
+New random solution value: -1062001
+Final local search value : -15 (budget: 69100453)
+New random solution value: -1062001
+Final local search value : -16 (budget: 69028568)
+New random solution value: -1062001
+Final local search value : -15 (budget: 68960369)
+New random solution value: -1062001
+Final local search value : -16 (budget: 68880882)
+New random solution value: -1062001
+Final local search value : -15 (budget: 68806997)
+New random solution value: -1062001
+Final local search value : -16 (budget: 68730150)
+New random solution value: -1062001
+Final local search value : -13 (budget: 68661778)
+New random solution value: -1062001
+Final local search value : -16 (budget: 68592897)
+New random solution value: -1062001
+Final local search value : -15 (budget: 68510077)
+New random solution value: -1062001
+Final local search value : -15 (budget: 68428602)
+New random solution value: -1062001
+Final local search value : -15 (budget: 68351015)
+New random solution value: -1062001
+Final local search value : -17 (budget: 68266914)
+New random solution value: -1062001
+Final local search value : -15 (budget: 68195778)
+New random solution value: -1062001
+Final local search value : -15 (budget: 68116456)
+New random solution value: -1062001
+Final local search value : -15 (budget: 68036583)
+New random solution value: -1062001
+Final local search value : -16 (budget: 67956101)
+New random solution value: -1062001
+Final local search value : -16 (budget: 67871171)
+New random solution value: -1062001
+Final local search value : -16 (budget: 67791170)
+New random solution value: -1062001
+Final local search value : -17 (budget: 67716679)
+New random solution value: -1062001
+Final local search value : -15 (budget: 67638409)
+New random solution value: -1062001
+Final local search value : -17 (budget: 67558518)
+New random solution value: -1062001
+Final local search value : -15 (budget: 67472371)
+New random solution value: -1062001
+Final local search value : -14 (budget: 67394101)
+New random solution value: -1062001
+Final local search value : -15 (budget: 67310682)
+New random solution value: -1062001
+Final local search value : -16 (budget: 67227761)
+New random solution value: -1062001
+Final local search value : -15 (budget: 67150396)
+New random solution value: -1062001
+Final local search value : -15 (budget: 67074211)
+New random solution value: -1062001
+Final local search value : -16 (budget: 67000298)
+New random solution value: -1062001
+Final local search value : -16 (budget: 66918567)
+New random solution value: -1062001
+Final local search value : -17 (budget: 66840594)
+New random solution value: -1062001
+Final local search value : -15 (budget: 66757485)
+New random solution value: -1062001
+Final local search value : -16 (budget: 66666145)
+New random solution value: -1062001
+Final local search value : -16 (budget: 66594248)
+New random solution value: -1062001
+Final local search value : -16 (budget: 66515981)
+New random solution value: -1062001
+Final local search value : -16 (budget: 66433941)
+New random solution value: -1062001
+Final local search value : -16 (budget: 66356042)
+New random solution value: -1062001
+Final local search value : -15 (budget: 66281830)
+New random solution value: -1062001
+Final local search value : -16 (budget: 66209833)
+New random solution value: -1062001
+Final local search value : -16 (budget: 66122547)
+New random solution value: -1062001
+Final local search value : -16 (budget: 66045911)
+New random solution value: -1062001
+Final local search value : -16 (budget: 65964656)
+New random solution value: -1062001
+Final local search value : -16 (budget: 65886029)
+New random solution value: -1062001
+Final local search value : -16 (budget: 65807829)
+New random solution value: -1062001
+Final local search value : -15 (budget: 65730805)
+New random solution value: -1062001
+Final local search value : -15 (budget: 65649382)
+New random solution value: -1062001
+Final local search value : -16 (budget: 65564375)
+New random solution value: -1062001
+Final local search value : -15 (budget: 65487239)
+New random solution value: -1062001
+Final local search value : -15 (budget: 65407379)
+New random solution value: -1062001
+Final local search value : -15 (budget: 65334680)
+New random solution value: -1062001
+Final local search value : -15 (budget: 65263320)
+New random solution value: -1062001
+Final local search value : -16 (budget: 65177849)
+New random solution value: -1062001
+Final local search value : -15 (budget: 65103360)
+New random solution value: -1062001
+Final local search value : -16 (budget: 65020758)
+New random solution value: -1062001
+Final local search value : -16 (budget: 64940999)
+New random solution value: -1062001
+Final local search value : -17 (budget: 64863707)
+New random solution value: -1062001
+Final local search value : -16 (budget: 64777700)
+New random solution value: -1062001
+Final local search value : -16 (budget: 64703490)
+New random solution value: -1062001
+Final local search value : -16 (budget: 64621675)
+New random solution value: -1062001
+Final local search value : -16 (budget: 64540829)
+New random solution value: -1062001
+Final local search value : -15 (budget: 64470048)
+New random solution value: -1062001
+Final local search value : -16 (budget: 64387362)
+New random solution value: -1062001
+Final local search value : -16 (budget: 64313246)
+New random solution value: -1062001
+Final local search value : -16 (budget: 64239573)
+New random solution value: -1062001
+Final local search value : -15 (budget: 64158515)
+New random solution value: -1062001
+Final local search value : -16 (budget: 64076696)
+New random solution value: -1062001
+Final local search value : -16 (budget: 64001025)
+New random solution value: -1062001
+Final local search value : -16 (budget: 63915176)
+New random solution value: -1062001
+Final local search value : -14 (budget: 63842153)
+New random solution value: -1062001
+Final local search value : -16 (budget: 63758014)
+New random solution value: -1062001
+Final local search value : -16 (budget: 63670691)
+New random solution value: -1062001
+Final local search value : -17 (budget: 63578633)
+New random solution value: -1062001
+Final local search value : -16 (budget: 63500765)
+New random solution value: -1062001
+Final local search value : -16 (budget: 63417411)
+New random solution value: -1062001
+Final local search value : -16 (budget: 63338739)
+New random solution value: -1062001
+Final local search value : -15 (budget: 63266857)
+New random solution value: -1062001
+Final local search value : -16 (budget: 63196013)
+New random solution value: -1062001
+Final local search value : -15 (budget: 63121910)
+New random solution value: -1062001
+Final local search value : -18 (budget: 63033772)
+New random solution value: -1062001
+Final local search value : -16 (budget: 62953287)
+New random solution value: -1062001
+Final local search value : -16 (budget: 62865961)
+New random solution value: -1062001
+Final local search value : -16 (budget: 62779399)
+New random solution value: -1062001
+Final local search value : -16 (budget: 62705403)
+New random solution value: -1062001
+Final local search value : -15 (budget: 62635904)
+New random solution value: -1062001
+Final local search value : -16 (budget: 62548655)
+New random solution value: -1062001
+Final local search value : -16 (budget: 62474599)
+New random solution value: -1062001
+Final local search value : -15 (budget: 62395188)
+New random solution value: -1062001
+Final local search value : -15 (budget: 62314979)
+New random solution value: -1062001
+Final local search value : -17 (budget: 62230899)
+New random solution value: -1062001
+Final local search value : -16 (budget: 62150071)
+New random solution value: -1062001
+Final local search value : -16 (budget: 62065922)
+New random solution value: -1062001
+Final local search value : -16 (budget: 61978770)
+New random solution value: -1062001
+Final local search value : -15 (budget: 61896576)
+New random solution value: -1062001
+Final local search value : -15 (budget: 61814819)
+New random solution value: -1062001
+Final local search value : -15 (budget: 61739262)
+New random solution value: -1062001
+Final local search value : -17 (budget: 61657924)
+New random solution value: -1062001
+Final local search value : -17 (budget: 61571224)
+New random solution value: -1062001
+Final local search value : -16 (budget: 61488665)
+New random solution value: -1062001
+Final local search value : -16 (budget: 61406233)
+New random solution value: -1062001
+Final local search value : -16 (budget: 61328308)
+New random solution value: -1062001
+Final local search value : -17 (budget: 61249617)
+New random solution value: -1062001
+Final local search value : -15 (budget: 61178280)
+New random solution value: -1062001
+Final local search value : -16 (budget: 61099934)
+New random solution value: -1062001
+Final local search value : -16 (budget: 61018648)
+New random solution value: -1062001
+Final local search value : -15 (budget: 60945411)
+New random solution value: -1062001
+Final local search value : -15 (budget: 60871734)
+New random solution value: -1062001
+Final local search value : -16 (budget: 60797995)
+New random solution value: -1062001
+Final local search value : -16 (budget: 60713474)
+New random solution value: -1062001
+Final local search value : -15 (budget: 60636546)
+New random solution value: -1062001
+Final local search value : -16 (budget: 60557461)
+New random solution value: -1062001
+Final local search value : -14 (budget: 60486470)
+New random solution value: -1062001
+Final local search value : -16 (budget: 60410896)
+New random solution value: -1062001
+Final local search value : -17 (budget: 60331034)
+New random solution value: -1062001
+Final local search value : -15 (budget: 60246891)
+New random solution value: -1062001
+Final local search value : -15 (budget: 60165339)
+New random solution value: -1062001
+Final local search value : -16 (budget: 60082562)
+New random solution value: -1062001
+Final local search value : -16 (budget: 60003344)
+New random solution value: -1062001
+Final local search value : -16 (budget: 59927184)
+New random solution value: -1062001
+Final local search value : -16 (budget: 59847903)
+New random solution value: -1062001
+Final local search value : -15 (budget: 59774267)
+New random solution value: -1062001
+Final local search value : -15 (budget: 59700591)
+New random solution value: -1062001
+Final local search value : -16 (budget: 59624682)
+New random solution value: -1062001
+Final local search value : -16 (budget: 59545800)
+New random solution value: -1062001
+Final local search value : -15 (budget: 59470222)
+New random solution value: -1062001
+Final local search value : -15 (budget: 59396595)
+New random solution value: -1062001
+Final local search value : -17 (budget: 59308779)
+New random solution value: -1062001
+Final local search value : -16 (budget: 59233602)
+New random solution value: -1062001
+Final local search value : -15 (budget: 59158200)
+New random solution value: -1062001
+Final local search value : -16 (budget: 59082102)
+New random solution value: -1062001
+Final local search value : -16 (budget: 58998929)
+New random solution value: -1062001
+Final local search value : -14 (budget: 58928046)
+New random solution value: -1062001
+Final local search value : -15 (budget: 58844996)
+New random solution value: -1062001
+Final local search value : -15 (budget: 58765203)
+New random solution value: -1062001
+Final local search value : -17 (budget: 58680248)
+New random solution value: -1062001
+Final local search value : -16 (budget: 58595613)
+New random solution value: -1062001
+Final local search value : -16 (budget: 58512432)
+New random solution value: -1062001
+Final local search value : -16 (budget: 58428170)
+New random solution value: -1062001
+Final local search value : -15 (budget: 58357331)
+New random solution value: -1062001
+Final local search value : -17 (budget: 58276059)
+New random solution value: -1062001
+Final local search value : -15 (budget: 58196407)
+New random solution value: -1062001
+Final local search value : -16 (budget: 58123116)
+New random solution value: -1062001
+Final local search value : -15 (budget: 58048952)
+New random solution value: -1062001
+Final local search value : -16 (budget: 57971225)
+New random solution value: -1062001
+Final local search value : -16 (budget: 57897698)
+New random solution value: -1062001
+Final local search value : -17 (budget: 57814733)
+New random solution value: -1062001
+Final local search value : -16 (budget: 57733505)
+New random solution value: -1062001
+Final local search value : -16 (budget: 57652889)
+New random solution value: -1062001
+Final local search value : -16 (budget: 57578855)
+New random solution value: -1062001
+Final local search value : -16 (budget: 57504508)
+New random solution value: -1062001
+Final local search value : -16 (budget: 57423358)
+New random solution value: -1062001
+Final local search value : -15 (budget: 57345497)
+New random solution value: -1062001
+Final local search value : -17 (budget: 57264037)
+New random solution value: -1062001
+Final local search value : -16 (budget: 57185240)
+New random solution value: -1062001
+Final local search value : -17 (budget: 57098823)
+New random solution value: -1062001
+Final local search value : -14 (budget: 57023315)
+New random solution value: -1062001
+Final local search value : -15 (budget: 56942428)
+New random solution value: -1062001
+Final local search value : -15 (budget: 56866713)
+New random solution value: -1062001
+Final local search value : -16 (budget: 56789200)
+New random solution value: -1062001
+Final local search value : -14 (budget: 56721574)
+New random solution value: -1062001
+Final local search value : -15 (budget: 56636196)
+New random solution value: -1062001
+Final local search value : -15 (budget: 56560299)
+New random solution value: -1062001
+Final local search value : -14 (budget: 56492815)
+New random solution value: -1062001
+Final local search value : -16 (budget: 56415041)
+New random solution value: -1062001
+Final local search value : -16 (budget: 56332765)
+New random solution value: -1062001
+Final local search value : -15 (budget: 56256468)
+New random solution value: -1062001
+Final local search value : -18 (budget: 56167828)
+New random solution value: -1062001
+Final local search value : -14 (budget: 56097030)
+New random solution value: -1062001
+Final local search value : -15 (budget: 56010242)
+New random solution value: -1062001
+Final local search value : -15 (budget: 55927245)
+New random solution value: -1062001
+Final local search value : -14 (budget: 55858396)
+New random solution value: -1062001
+Final local search value : -17 (budget: 55784293)
+New random solution value: -1062001
+Final local search value : -16 (budget: 55711233)
+New random solution value: -1062001
+Final local search value : -17 (budget: 55625842)
+New random solution value: -1062001
+Final local search value : -15 (budget: 55547807)
+New random solution value: -1062001
+Final local search value : -15 (budget: 55479585)
+New random solution value: -1062001
+Final local search value : -16 (budget: 55404737)
+New random solution value: -1062001
+Final local search value : -16 (budget: 55326067)
+New random solution value: -1062001
+Final local search value : -17 (budget: 55248163)
+New random solution value: -1062001
+Final local search value : -17 (budget: 55165674)
+New random solution value: -1062001
+Final local search value : -17 (budget: 55085500)
+New random solution value: -1062001
+Final local search value : -16 (budget: 54997512)
+New random solution value: -1062001
+Final local search value : -16 (budget: 54920294)
+New random solution value: -1062001
+Final local search value : -16 (budget: 54838330)
+New random solution value: -1062001
+Final local search value : -15 (budget: 54766265)
+New random solution value: -1062001
+Final local search value : -15 (budget: 54693291)
+New random solution value: -1062001
+Final local search value : -16 (budget: 54610269)
+New random solution value: -1062001
+Final local search value : -15 (budget: 54531677)
+New random solution value: -1062001
+Final local search value : -17 (budget: 54451835)
+New random solution value: -1062001
+Final local search value : -16 (budget: 54377000)
+New random solution value: -1062001
+Final local search value : -15 (budget: 54308744)
+New random solution value: -1062001
+Final local search value : -17 (budget: 54230614)
+New random solution value: -1062001
+Final local search value : -16 (budget: 54148921)
+New random solution value: -1062001
+Final local search value : -16 (budget: 54069616)
+New random solution value: -1062001
+Final local search value : -17 (budget: 53985313)
+New random solution value: -1062001
+Final local search value : -16 (budget: 53905891)
+New random solution value: -1062001
+Final local search value : -15 (budget: 53833897)
+New random solution value: -1062001
+Final local search value : -14 (budget: 53760114)
+New random solution value: -1062001
+Final local search value : -16 (budget: 53685992)
+New random solution value: -1062001
+Final local search value : -15 (budget: 53608569)
+New random solution value: -1062001
+Final local search value : -17 (budget: 53526686)
+New random solution value: -1062001
+Final local search value : -17 (budget: 53446811)
+New random solution value: -1062001
+Final local search value : -15 (budget: 53368134)
+New random solution value: -1062001
+Final local search value : -17 (budget: 53287824)
+New random solution value: -1062001
+Final local search value : -17 (budget: 53200094)
+New random solution value: -1062001
+Final local search value : -15 (budget: 53122340)
+New random solution value: -1062001
+Final local search value : -15 (budget: 53045781)
+New random solution value: -1062001
+Final local search value : -15 (budget: 52963578)
+New random solution value: -1062001
+Final local search value : -16 (budget: 52889173)
+New random solution value: -1062001
+Final local search value : -15 (budget: 52803544)
+New random solution value: -1062001
+Final local search value : -16 (budget: 52724552)
+New random solution value: -1062001
+Final local search value : -15 (budget: 52652547)
+New random solution value: -1062001
+Final local search value : -15 (budget: 52571804)
+New random solution value: -1062001
+Final local search value : -15 (budget: 52495026)
+New random solution value: -1062001
+Final local search value : -16 (budget: 52417328)
+New random solution value: -1062001
+Final local search value : -14 (budget: 52343467)
+New random solution value: -1062001
+Final local search value : -14 (budget: 52274785)
+New random solution value: -1062001
+Final local search value : -17 (budget: 52184136)
+New random solution value: -1062001
+Final local search value : -16 (budget: 52105280)
+New random solution value: -1062001
+Final local search value : -16 (budget: 52031797)
+New random solution value: -1062001
+Final local search value : -16 (budget: 51955159)
+New random solution value: -1062001
+Final local search value : -15 (budget: 51874961)
+New random solution value: -1062001
+Final local search value : -16 (budget: 51789348)
+New random solution value: -1062001
+Final local search value : -17 (budget: 51709490)
+New random solution value: -1062001
+Final local search value : -17 (budget: 51624431)
+New random solution value: -1062001
+Final local search value : -16 (budget: 51537450)
+New random solution value: -1062001
+Final local search value : -16 (budget: 51460817)
+New random solution value: -1062001
+Final local search value : -15 (budget: 51385537)
+New random solution value: -1062001
+Final local search value : -16 (budget: 51306658)
+New random solution value: -1062001
+Final local search value : -15 (budget: 51231061)
+New random solution value: -1062001
+Final local search value : -15 (budget: 51155129)
+New random solution value: -1062001
+Final local search value : -14 (budget: 51089701)
+New random solution value: -1062001
+Final local search value : -18 (budget: 51003352)
+New random solution value: -1062001
+Final local search value : -15 (budget: 50931341)
+New random solution value: -1062001
+Final local search value : -15 (budget: 50856034)
+New random solution value: -1062001
+Final local search value : -14 (budget: 50785095)
+New random solution value: -1062001
+Final local search value : -15 (budget: 50705796)
+New random solution value: -1062001
+Final local search value : -15 (budget: 50627129)
+New random solution value: -1062001
+Final local search value : -17 (budget: 50547649)
+New random solution value: -1062001
+Final local search value : -16 (budget: 50473154)
+New random solution value: -1062001
+Final local search value : -15 (budget: 50397307)
+New random solution value: -1062001
+Final local search value : -16 (budget: 50311064)
+New random solution value: -1062001
+Final local search value : -15 (budget: 50239728)
+New random solution value: -1062001
+Final local search value : -15 (budget: 50162450)
+New random solution value: -1062001
+Final local search value : -16 (budget: 50085413)
+New random solution value: -1062001
+Final local search value : -15 (budget: 50003838)
+New random solution value: -1062001
+Final local search value : -16 (budget: 49930352)
+New random solution value: -1062001
+Final local search value : -15 (budget: 49854656)
+New random solution value: -1062001
+Final local search value : -15 (budget: 49776374)
+New random solution value: -1062001
+Final local search value : -16 (budget: 49695474)
+New random solution value: -1062001
+Final local search value : -16 (budget: 49617290)
+New random solution value: -1062001
+Final local search value : -15 (budget: 49545635)
+New random solution value: -1062001
+Final local search value : -15 (budget: 49470924)
+New random solution value: -1062001
+Final local search value : -16 (budget: 49385193)
+New random solution value: -1062001
+Final local search value : -16 (budget: 49307982)
+New random solution value: -1062001
+Final local search value : -16 (budget: 49227673)
+New random solution value: -1062001
+Final local search value : -16 (budget: 49153359)
+New random solution value: -1062001
+Final local search value : -14 (budget: 49083362)
+New random solution value: -1062001
+Final local search value : -15 (budget: 49013073)
+New random solution value: -1062001
+Final local search value : -16 (budget: 48936390)
+New random solution value: -1062001
+Final local search value : -16 (budget: 48858778)
+New random solution value: -1062001
+Final local search value : -15 (budget: 48785258)
+New random solution value: -1062001
+Final local search value : -18 (budget: 48700434)
+New random solution value: -1062001
+Final local search value : -15 (budget: 48625388)
+New random solution value: -1062001
+Final local search value : -16 (budget: 48553655)
+New random solution value: -1062001
+Final local search value : -16 (budget: 48471065)
+New random solution value: -1062001
+Final local search value : -16 (budget: 48393645)
+New random solution value: -1062001
+Final local search value : -15 (budget: 48318192)
+New random solution value: -1062001
+Final local search value : -16 (budget: 48247175)
+New random solution value: -1062001
+Final local search value : -16 (budget: 48168769)
+New random solution value: -1062001
+Final local search value : -15 (budget: 48099533)
+New random solution value: -1062001
+Final local search value : -16 (budget: 48022811)
+New random solution value: -1062001
+Final local search value : -15 (budget: 47946381)
+New random solution value: -1062001
+Final local search value : -17 (budget: 47857293)
+New random solution value: -1062001
+Final local search value : -16 (budget: 47779160)
+New random solution value: -1062001
+Final local search value : -15 (budget: 47705091)
+New random solution value: -1062001
+Final local search value : -16 (budget: 47625367)
+New random solution value: -1062001
+Final local search value : -16 (budget: 47548883)
+New random solution value: -1062001
+Final local search value : -16 (budget: 47467975)
+New random solution value: -1062001
+Final local search value : -16 (budget: 47388880)
+New random solution value: -1062001
+Final local search value : -15 (budget: 47315117)
+New random solution value: -1062001
+Final local search value : -17 (budget: 47235158)
+New random solution value: -1062001
+Final local search value : -17 (budget: 47158444)
+New random solution value: -1062001
+Final local search value : -16 (budget: 47074414)
+New random solution value: -1062001
+Final local search value : -16 (budget: 46993120)
+New random solution value: -1062001
+Final local search value : -16 (budget: 46916570)
+New random solution value: -1062001
+Final local search value : -15 (budget: 46843145)
+New random solution value: -1062001
+Final local search value : -16 (budget: 46760072)
+New random solution value: -1062001
+Final local search value : -15 (budget: 46681603)
+New random solution value: -1062001
+Final local search value : -15 (budget: 46601356)
+New random solution value: -1062001
+Final local search value : -16 (budget: 46526247)
+New random solution value: -1062001
+Final local search value : -15 (budget: 46440899)
+New random solution value: -1062001
+Final local search value : -14 (budget: 46375133)
+New random solution value: -1062001
+Final local search value : -15 (budget: 46297566)
+New random solution value: -1062001
+Final local search value : -15 (budget: 46216532)
+New random solution value: -1062001
+Final local search value : -15 (budget: 46143126)
+New random solution value: -1062001
+Final local search value : -17 (budget: 46061381)
+New random solution value: -1062001
+Final local search value : -15 (budget: 45975802)
+New random solution value: -1062001
+Final local search value : -14 (budget: 45898600)
+New random solution value: -1062001
+Final local search value : -16 (budget: 45821361)
+New random solution value: -1062001
+Final local search value : -16 (budget: 45741172)
+New random solution value: -1062001
+Final local search value : -15 (budget: 45664193)
+New random solution value: -1062001
+Final local search value : -15 (budget: 45588690)
+New random solution value: -1062001
+Final local search value : -15 (budget: 45519604)
+New random solution value: -1062001
+Final local search value : -16 (budget: 45442068)
+New random solution value: -1062001
+Final local search value : -15 (budget: 45366997)
+New random solution value: -1062001
+Final local search value : -15 (budget: 45289855)
+New random solution value: -1062001
+Final local search value : -15 (budget: 45212607)
+New random solution value: -1062001
+Final local search value : -15 (budget: 45134639)
+New random solution value: -1062001
+Final local search value : -16 (budget: 45054890)
+New random solution value: -1062001
+Final local search value : -17 (budget: 44976430)
+New random solution value: -1062001
+Final local search value : -15 (budget: 44899274)
+New random solution value: -1062001
+Final local search value : -15 (budget: 44824996)
+New random solution value: -1062001
+Final local search value : -16 (budget: 44753383)
+New random solution value: -1062001
+Final local search value : -16 (budget: 44684031)
+New random solution value: -1062001
+Final local search value : -15 (budget: 44602747)
+New random solution value: -1062001
+Final local search value : -15 (budget: 44525374)
+New random solution value: -1062001
+Final local search value : -15 (budget: 44456555)
+New random solution value: -1062001
+Final local search value : -17 (budget: 44370743)
+New random solution value: -1062001
+Final local search value : -16 (budget: 44291885)
+New random solution value: -1062001
+Final local search value : -16 (budget: 44210875)
+New random solution value: -1062001
+Final local search value : -17 (budget: 44130246)
+New random solution value: -1062001
+Final local search value : -17 (budget: 44054601)
+New random solution value: -1062001
+Final local search value : -17 (budget: 43974171)
+New random solution value: -1062001
+Final local search value : -14 (budget: 43902080)
+New random solution value: -1062001
+Final local search value : -15 (budget: 43830000)
+New random solution value: -1062001
+Final local search value : -15 (budget: 43751831)
+New random solution value: -1062001
+Final local search value : -16 (budget: 43671381)
+New random solution value: -1062001
+Final local search value : -16 (budget: 43594822)
+New random solution value: -1062001
+Final local search value : -15 (budget: 43513340)
+New random solution value: -1062001
+Final local search value : -16 (budget: 43422518)
+New random solution value: -1062001
+Final local search value : -15 (budget: 43349572)
+New random solution value: -1062001
+Final local search value : -16 (budget: 43273610)
+New random solution value: -1062001
+Final local search value : -14 (budget: 43195714)
+New random solution value: -1062001
+Final local search value : -17 (budget: 43113314)
+New random solution value: -1062001
+Final local search value : -16 (budget: 43043929)
+New random solution value: -1062001
+Final local search value : -15 (budget: 42971883)
+New random solution value: -1062001
+Final local search value : -14 (budget: 42898558)
+New random solution value: -1062001
+Final local search value : -15 (budget: 42826130)
+New random solution value: -1062001
+Final local search value : -15 (budget: 42752864)
+New random solution value: -1062001
+Final local search value : -16 (budget: 42669692)
+New random solution value: -1062001
+Final local search value : -15 (budget: 42587233)
+New random solution value: -1062001
+Final local search value : -15 (budget: 42509733)
+New random solution value: -1062001
+Final local search value : -15 (budget: 42440139)
+New random solution value: -1062001
+Final local search value : -16 (budget: 42362632)
+New random solution value: -1062001
+Final local search value : -16 (budget: 42293398)
+New random solution value: -1062001
+Final local search value : -15 (budget: 42209221)
+New random solution value: -1062001
+Final local search value : -17 (budget: 42128891)
+New random solution value: -1062001
+Final local search value : -16 (budget: 42046544)
+New random solution value: -1062001
+Final local search value : -15 (budget: 41979735)
+New random solution value: -1062001
+Final local search value : -15 (budget: 41907895)
+New random solution value: -1062001
+Final local search value : -17 (budget: 41822989)
+New random solution value: -1062001
+Final local search value : -16 (budget: 41745940)
+New random solution value: -1062001
+Final local search value : -16 (budget: 41668514)
+New random solution value: -1062001
+Final local search value : -16 (budget: 41582796)
+New random solution value: -1062001
+Final local search value : -15 (budget: 41504052)
+New random solution value: -1062001
+Final local search value : -16 (budget: 41429431)
+New random solution value: -1062001
+Final local search value : -16 (budget: 41352750)
+New random solution value: -1062001
+Final local search value : -16 (budget: 41268363)
+New random solution value: -1062001
+Final local search value : -16 (budget: 41189094)
+New random solution value: -1062001
+Final local search value : -15 (budget: 41106337)
+New random solution value: -1062001
+Final local search value : -16 (budget: 41025199)
+New random solution value: -1062001
+Final local search value : -16 (budget: 40951961)
+New random solution value: -1062001
+Final local search value : -16 (budget: 40877194)
+New random solution value: -1062001
+Final local search value : -16 (budget: 40798300)
+New random solution value: -1062001
+Final local search value : -17 (budget: 40710081)
+New random solution value: -1062001
+Final local search value : -16 (budget: 40632126)
+New random solution value: -1062001
+Final local search value : -14 (budget: 40554702)
+New random solution value: -1062001
+Final local search value : -15 (budget: 40476048)
+New random solution value: -1062001
+Final local search value : -15 (budget: 40405173)
+New random solution value: -1062001
+Final local search value : -15 (budget: 40321728)
+New random solution value: -1062001
+Final local search value : -15 (budget: 40236868)
+New random solution value: -1062001
+Final local search value : -15 (budget: 40160007)
+New random solution value: -1062001
+Final local search value : -15 (budget: 40086125)
+New random solution value: -1062001
+Final local search value : -15 (budget: 40009962)
+New random solution value: -1062001
+Final local search value : -17 (budget: 39933179)
+New random solution value: -1062001
+Final local search value : -16 (budget: 39852276)
+New random solution value: -1062001
+Final local search value : -16 (budget: 39773675)
+New random solution value: -1062001
+Final local search value : -17 (budget: 39681566)
+New random solution value: -1062001
+Final local search value : -15 (budget: 39614583)
+New random solution value: -1062001
+Final local search value : -16 (budget: 39541266)
+New random solution value: -1062001
+Final local search value : -16 (budget: 39459282)
+New random solution value: -1062001
+Final local search value : -15 (budget: 39381351)
+New random solution value: -1062001
+Final local search value : -16 (budget: 39299450)
+New random solution value: -1062001
+Final local search value : -16 (budget: 39222472)
+New random solution value: -1062001
+Final local search value : -15 (budget: 39153628)
+New random solution value: -1062001
+Final local search value : -16 (budget: 39084316)
+New random solution value: -1062001
+Final local search value : -16 (budget: 39010802)
+New random solution value: -1062001
+Final local search value : -17 (budget: 38931411)
+New random solution value: -1062001
+Final local search value : -14 (budget: 38855850)
+New random solution value: -1062001
+Final local search value : -16 (budget: 38770911)
+New random solution value: -1062001
+Final local search value : -16 (budget: 38695649)
+New random solution value: -1062001
+Final local search value : -15 (budget: 38611587)
+New random solution value: -1062001
+Final local search value : -15 (budget: 38530429)
+New random solution value: -1062001
+Final local search value : -16 (budget: 38454357)
+New random solution value: -1062001
+Final local search value : -16 (budget: 38371553)
+New random solution value: -1062001
+Final local search value : -15 (budget: 38301751)
+New random solution value: -1062001
+Final local search value : -15 (budget: 38226080)
+New random solution value: -1062001
+Final local search value : -16 (budget: 38143717)
+New random solution value: -1062001
+Final local search value : -15 (budget: 38066753)
+New random solution value: -1062001
+Final local search value : -15 (budget: 37999211)
+New random solution value: -1062001
+Final local search value : -16 (budget: 37922261)
+New random solution value: -1062001
+Final local search value : -16 (budget: 37839148)
+New random solution value: -1062001
+Final local search value : -15 (budget: 37759741)
+New random solution value: -1062001
+Final local search value : -14 (budget: 37688576)
+New random solution value: -1062001
+Final local search value : -16 (budget: 37610053)
+New random solution value: -1062001
+Final local search value : -16 (budget: 37529919)
+New random solution value: -1062001
+Final local search value : -15 (budget: 37457584)
+New random solution value: -1062001
+Final local search value : -15 (budget: 37376200)
+New random solution value: -1062001
+Final local search value : -15 (budget: 37297684)
+New random solution value: -1062001
+Final local search value : -16 (budget: 37213698)
+New random solution value: -1062001
+Final local search value : -16 (budget: 37130638)
+New random solution value: -1062001
+Final local search value : -15 (budget: 37053658)
+New random solution value: -1062001
+Final local search value : -16 (budget: 36983057)
+New random solution value: -1062001
+Final local search value : -16 (budget: 36897335)
+New random solution value: -1062001
+Final local search value : -16 (budget: 36815627)
+New random solution value: -1062001
+Final local search value : -15 (budget: 36738526)
+New random solution value: -1062001
+Final local search value : -17 (budget: 36663688)
+New random solution value: -1062001
+Final local search value : -15 (budget: 36587259)
+New random solution value: -1062001
+Final local search value : -16 (budget: 36498788)
+New random solution value: -1062001
+Final local search value : -16 (budget: 36413843)
+New random solution value: -1062001
+Final local search value : -15 (budget: 36337163)
+New random solution value: -1062001
+Final local search value : -16 (budget: 36257268)
+New random solution value: -1062001
+Final local search value : -15 (budget: 36177730)
+New random solution value: -1062001
+Final local search value : -16 (budget: 36097568)
+New random solution value: -1062001
+Final local search value : -15 (budget: 36025046)
+New random solution value: -1062001
+Final local search value : -16 (budget: 35954073)
+New random solution value: -1062001
+Final local search value : -16 (budget: 35871209)
+New random solution value: -1062001
+Final local search value : -15 (budget: 35784042)
+New random solution value: -1062001
+Final local search value : -16 (budget: 35707630)
+New random solution value: -1062001
+Final local search value : -16 (budget: 35627808)
+New random solution value: -1062001
+Final local search value : -16 (budget: 35549629)
+New random solution value: -1062001
+Final local search value : -16 (budget: 35474496)
+New random solution value: -1062001
+Final local search value : -15 (budget: 35397550)
+New random solution value: -1062001
+Final local search value : -15 (budget: 35312035)
+New random solution value: -1062001
+Final local search value : -16 (budget: 35231372)
+New random solution value: -1062001
+Final local search value : -14 (budget: 35152785)
+New random solution value: -1062001
+Final local search value : -16 (budget: 35072864)
+New random solution value: -1062001
+Final local search value : -16 (budget: 34990110)
+New random solution value: -1062001
+Final local search value : -15 (budget: 34917286)
+New random solution value: -1062001
+Final local search value : -15 (budget: 34846513)
+New random solution value: -1062001
+Final local search value : -14 (budget: 34771749)
+New random solution value: -1062001
+Final local search value : -16 (budget: 34698326)
+New random solution value: -1062001
+Final local search value : -16 (budget: 34628583)
+New random solution value: -1062001
+Final local search value : -15 (budget: 34555095)
+New random solution value: -1062001
+Final local search value : -15 (budget: 34471789)
+New random solution value: -1062001
+Final local search value : -15 (budget: 34386661)
+New random solution value: -1062001
+Final local search value : -16 (budget: 34310687)
+New random solution value: -1062001
+Final local search value : -16 (budget: 34233530)
+New random solution value: -1062001
+Final local search value : -15 (budget: 34162118)
+New random solution value: -1062001
+Final local search value : -15 (budget: 34080703)
+New random solution value: -1062001
+Final local search value : -18 (budget: 33993681)
+New random solution value: -1062001
+Final local search value : -16 (budget: 33919205)
+New random solution value: -1062001
+Final local search value : -15 (budget: 33835608)
+New random solution value: -1062001
+Final local search value : -14 (budget: 33767672)
+New random solution value: -1062001
+Final local search value : -15 (budget: 33696457)
+New random solution value: -1062001
+Final local search value : -16 (budget: 33616845)
+New random solution value: -1062001
+Final local search value : -17 (budget: 33538459)
+New random solution value: -1062001
+Final local search value : -16 (budget: 33463324)
+New random solution value: -1062001
+Final local search value : -15 (budget: 33384236)
+New random solution value: -1062001
+Final local search value : -15 (budget: 33308853)
+New random solution value: -1062001
+Final local search value : -16 (budget: 33225747)
+New random solution value: -1062001
+Final local search value : -16 (budget: 33152364)
+New random solution value: -1062001
+Final local search value : -15 (budget: 33074732)
+New random solution value: -1062001
+Final local search value : -17 (budget: 32993597)
+New random solution value: -1062001
+Final local search value : -15 (budget: 32911770)
+New random solution value: -1062001
+Final local search value : -15 (budget: 32837016)
+New random solution value: -1062001
+Final local search value : -15 (budget: 32757733)
+New random solution value: -1062001
+Final local search value : -17 (budget: 32664392)
+New random solution value: -1062001
+Final local search value : -16 (budget: 32583858)
+New random solution value: -1062001
+Final local search value : -17 (budget: 32503637)
+New random solution value: -1062001
+Final local search value : -17 (budget: 32423327)
+New random solution value: -1062001
+Final local search value : -15 (budget: 32354804)
+New random solution value: -1062001
+Final local search value : -15 (budget: 32276581)
+New random solution value: -1062001
+Final local search value : -16 (budget: 32191598)
+New random solution value: -1062001
+Final local search value : -14 (budget: 32115712)
+New random solution value: -1062001
+Final local search value : -15 (budget: 32043001)
+New random solution value: -1062001
+Final local search value : -15 (budget: 31966007)
+New random solution value: -1062001
+Final local search value : -16 (budget: 31891196)
+New random solution value: -1062001
+Final local search value : -15 (budget: 31816542)
+New random solution value: -1062001
+Final local search value : -16 (budget: 31736362)
+New random solution value: -1062001
+Final local search value : -16 (budget: 31662186)
+New random solution value: -1062001
+Final local search value : -16 (budget: 31587870)
+New random solution value: -1062001
+Final local search value : -15 (budget: 31513685)
+New random solution value: -1062001
+Final local search value : -17 (budget: 31433189)
+New random solution value: -1062001
+Final local search value : -15 (budget: 31362929)
+New random solution value: -1062001
+Final local search value : -16 (budget: 31284429)
+New random solution value: -1062001
+Final local search value : -15 (budget: 31209973)
+New random solution value: -1062001
+Final local search value : -16 (budget: 31135224)
+New random solution value: -1062001
+Final local search value : -14 (budget: 31066662)
+New random solution value: -1062001
+Final local search value : -17 (budget: 30976858)
+New random solution value: -1062001
+Final local search value : -16 (budget: 30892414)
+New random solution value: -1062001
+Final local search value : -15 (budget: 30822579)
+New random solution value: -1062001
+Final local search value : -15 (budget: 30750105)
+New random solution value: -1062001
+Final local search value : -16 (budget: 30672313)
+New random solution value: -1062001
+Final local search value : -15 (budget: 30598355)
+New random solution value: -1062001
+Final local search value : -16 (budget: 30512457)
+New random solution value: -1062001
+Final local search value : -17 (budget: 30429799)
+New random solution value: -1062001
+Final local search value : -14 (budget: 30349630)
+New random solution value: -1062001
+Final local search value : -16 (budget: 30270771)
+New random solution value: -1062001
+Final local search value : -15 (budget: 30190345)
+New random solution value: -1062001
+Final local search value : -16 (budget: 30120390)
+New random solution value: -1062001
+Final local search value : -16 (budget: 30035183)
+New random solution value: -1062001
+Final local search value : -16 (budget: 29955854)
+New random solution value: -1062001
+Final local search value : -16 (budget: 29878994)
+New random solution value: -1062001
+Final local search value : -16 (budget: 29798252)
+New random solution value: -1062001
+Final local search value : -16 (budget: 29705769)
+New random solution value: -1062001
+Final local search value : -15 (budget: 29628863)
+New random solution value: -1062001
+Final local search value : -17 (budget: 29542968)
+New random solution value: -1062001
+Final local search value : -15 (budget: 29475312)
+New random solution value: -1062001
+Final local search value : -15 (budget: 29391584)
+New random solution value: -1062001
+Final local search value : -17 (budget: 29307747)
+New random solution value: -1062001
+Final local search value : -16 (budget: 29235007)
+New random solution value: -1062001
+Final local search value : -15 (budget: 29159600)
+New random solution value: -1062001
+Final local search value : -15 (budget: 29088798)
+New random solution value: -1062001
+Final local search value : -16 (budget: 29013005)
+New random solution value: -1062001
+Final local search value : -15 (budget: 28938603)
+New random solution value: -1062001
+Final local search value : -15 (budget: 28865667)
+New random solution value: -1062001
+Final local search value : -15 (budget: 28786183)
+New random solution value: -1062001
+Final local search value : -15 (budget: 28714233)
+New random solution value: -1062001
+Final local search value : -15 (budget: 28634291)
+New random solution value: -1062001
+Final local search value : -16 (budget: 28561202)
+New random solution value: -1062001
+Final local search value : -16 (budget: 28480548)
+New random solution value: -1062001
+Final local search value : -16 (budget: 28406822)
+New random solution value: -1062001
+Final local search value : -16 (budget: 28325254)
+New random solution value: -1062001
+Final local search value : -16 (budget: 28245578)
+New random solution value: -1062001
+Final local search value : -17 (budget: 28159251)
+New random solution value: -1062001
+Final local search value : -16 (budget: 28082653)
+New random solution value: -1062001
+Final local search value : -16 (budget: 28002675)
+New random solution value: -1062001
+Final local search value : -15 (budget: 27922038)
+New random solution value: -1062001
+Final local search value : -16 (budget: 27838289)
+New random solution value: -1062001
+Final local search value : -16 (budget: 27762782)
+New random solution value: -1062001
+Final local search value : -16 (budget: 27690460)
+New random solution value: -1062001
+Final local search value : -16 (budget: 27612501)
+New random solution value: -1062001
+Final local search value : -15 (budget: 27538178)
+New random solution value: -1062001
+Final local search value : -16 (budget: 27447861)
+New random solution value: -1062001
+Final local search value : -16 (budget: 27371023)
+New random solution value: -1062001
+Final local search value : -17 (budget: 27284321)
+New random solution value: -1062001
+Final local search value : -15 (budget: 27208249)
+New random solution value: -1062001
+Final local search value : -16 (budget: 27135320)
+New random solution value: -1062001
+Final local search value : -15 (budget: 27056505)
+New random solution value: -1062001
+Final local search value : -16 (budget: 26979295)
+New random solution value: -1062001
+Final local search value : -17 (budget: 26904170)
+New random solution value: -1062001
+Final local search value : -15 (budget: 26830168)
+New random solution value: -1062001
+Final local search value : -16 (budget: 26755136)
+New random solution value: -1062001
+Final local search value : -15 (budget: 26672125)
+New random solution value: -1062001
+Final local search value : -16 (budget: 26597716)
+New random solution value: -1062001
+Final local search value : -15 (budget: 26518531)
+New random solution value: -1062001
+Final local search value : -17 (budget: 26435374)
+New random solution value: -1062001
+Final local search value : -15 (budget: 26357090)
+New random solution value: -1062001
+Final local search value : -16 (budget: 26275080)
+  Activating project at `~/Academia/lecionadas/UFRGS/graduacao/INF05010_Otimização_Combinatória/INF05010_Problems/trabalho_pratico/2025-1/mgc/scripts`
+New random solution value: -1062001
+Final local search value : -15 (budget: 26200205)
+New random solution value: -1062001
+Final local search value : -16 (budget: 26127733)
+New random solution value: -1062001
+Final local search value : -16 (budget: 26052960)
+New random solution value: -1062001
+Final local search value : -15 (budget: 25975948)
+New random solution value: -1062001
+Final local search value : -16 (budget: 25901458)
+New random solution value: -1062001
+Final local search value : -17 (budget: 25829116)
+New random solution value: -1062001
+Final local search value : -16 (budget: 25740407)
+New random solution value: -1062001
+Final local search value : -15 (budget: 25661930)
+New random solution value: -1062001
+Final local search value : -17 (budget: 25573687)
+New random solution value: -1062001
+Final local search value : -16 (budget: 25495576)
+New random solution value: -1062001
+Final local search value : -15 (budget: 25420278)
+New random solution value: -1062001
+Final local search value : -17 (budget: 25334959)
+New random solution value: -1062001
+Final local search value : -17 (budget: 25259558)
+New random solution value: -1062001
+Final local search value : -15 (budget: 25175828)
+New random solution value: -1062001
+Final local search value : -17 (budget: 25101820)
+New random solution value: -1062001
+Final local search value : -15 (budget: 25028223)
+New random solution value: -1062001
+Final local search value : -17 (budget: 24942835)
+New random solution value: -1062001
+Final local search value : -14 (budget: 24872037)
+New random solution value: -1062001
+Final local search value : -15 (budget: 24801972)
+New random solution value: -1062001
+Final local search value : -15 (budget: 24733742)
+New random solution value: -1062001
+Final local search value : -15 (budget: 24657989)
+New random solution value: -1062001
+Final local search value : -15 (budget: 24579609)
+New random solution value: -1062001
+Final local search value : -16 (budget: 24499245)
+New random solution value: -1062001
+Final local search value : -16 (budget: 24415911)
+New random solution value: -1062001
+Final local search value : -15 (budget: 24338325)
+New random solution value: -1062001
+Final local search value : -15 (budget: 24270619)
+New random solution value: -1062001
+Final local search value : -15 (budget: 24188504)
+New random solution value: -1062001
+Final local search value : -15 (budget: 24117108)
+New random solution value: -1062001
+Final local search value : -15 (budget: 24033705)
+New random solution value: -1062001
+Final local search value : -18 (budget: 23944132)
+New random solution value: -1062001
+Final local search value : -15 (budget: 23867192)
+New random solution value: -1062001
+Final local search value : -16 (budget: 23784772)
+New random solution value: -1062001
+Final local search value : -15 (budget: 23701848)
+New random solution value: -1062001
+Final local search value : -17 (budget: 23601616)
+New random solution value: -1062001
+Final local search value : -16 (budget: 23520514)
+New random solution value: -1062001
+Final local search value : -16 (budget: 23442684)
+New random solution value: -1062001
+Final local search value : -15 (budget: 23362811)
+New random solution value: -1062001
+Final local search value : -17 (budget: 23277599)
+New random solution value: -1062001
+Final local search value : -15 (budget: 23202626)
+New random solution value: -1062001
+Final local search value : -15 (budget: 23125094)
+New random solution value: -1062001
+Final local search value : -16 (budget: 23048357)
+New random solution value: -1062001
+Final local search value : -15 (budget: 22972332)
+New random solution value: -1062001
+Final local search value : -15 (budget: 22899820)
+New random solution value: -1062001
+Final local search value : -15 (budget: 22828692)
+New random solution value: -1062001
+Final local search value : -15 (budget: 22754311)
+New random solution value: -1062001
+Final local search value : -16 (budget: 22672546)
+New random solution value: -1062001
+Final local search value : -15 (budget: 22595926)
+New random solution value: -1062001
+Final local search value : -17 (budget: 22516745)
+New random solution value: -1062001
+Final local search value : -15 (budget: 22439256)
+New random solution value: -1062001
+Final local search value : -19 (budget: 22343060)
+New random solution value: -1062001
+Final local search value : -16 (budget: 22260418)
+New random solution value: -1062001
+Final local search value : -16 (budget: 22184548)
+New random solution value: -1062001
+Final local search value : -15 (budget: 22106186)
+New random solution value: -1062001
+Final local search value : -15 (budget: 22035225)
+New random solution value: -1062001
+Final local search value : -15 (budget: 21959585)
+New random solution value: -1062001
+Final local search value : -14 (budget: 21882242)
+New random solution value: -1062001
+Final local search value : -16 (budget: 21810381)
+New random solution value: -1062001
+Final local search value : -15 (budget: 21729565)
+New random solution value: -1062001
+Final local search value : -16 (budget: 21655570)
+New random solution value: -1062001
+Final local search value : -16 (budget: 21578090)
+New random solution value: -1062001
+Final local search value : -15 (budget: 21506681)
+New random solution value: -1062001
+Final local search value : -14 (budget: 21436499)
+New random solution value: -1062001
+Final local search value : -15 (budget: 21361531)
+New random solution value: -1062001
+Final local search value : -17 (budget: 21290957)
+New random solution value: -1062001
+Final local search value : -16 (budget: 21204545)
+New random solution value: -1062001
+Final local search value : -16 (budget: 21125892)
+New random solution value: -1062001
+Final local search value : -16 (budget: 21047089)
+New random solution value: -1062001
+Final local search value : -16 (budget: 20970012)
+New random solution value: -1062001
+Final local search value : -15 (budget: 20897916)
+New random solution value: -1062001
+Final local search value : -15 (budget: 20813520)
+New random solution value: -1062001
+Final local search value : -17 (budget: 20731189)
+New random solution value: -1062001
+Final local search value : -14 (budget: 20654659)
+New random solution value: -1062001
+Final local search value : -15 (budget: 20580322)
+New random solution value: -1062001
+Final local search value : -14 (budget: 20511164)
+New random solution value: -1062001
+Final local search value : -16 (budget: 20426413)
+New random solution value: -1062001
+Final local search value : -16 (budget: 20347653)
+New random solution value: -1062001
+Final local search value : -16 (budget: 20265987)
+New random solution value: -1062001
+Final local search value : -16 (budget: 20186298)
+New random solution value: -1062001
+Final local search value : -14 (budget: 20111429)
+New random solution value: -1062001
+Final local search value : -15 (budget: 20037767)
+New random solution value: -1062001
+Final local search value : -15 (budget: 19959652)
+New random solution value: -1062001
+Final local search value : -15 (budget: 19885568)
+New random solution value: -1062001
+Final local search value : -16 (budget: 19812113)
+New random solution value: -1062001
+Final local search value : -15 (budget: 19736723)
+New random solution value: -1062001
+Final local search value : -17 (budget: 19664733)
+New random solution value: -1062001
+Final local search value : -15 (budget: 19586916)
+New random solution value: -1062001
+Final local search value : -17 (budget: 19510830)
+New random solution value: -1062001
+Final local search value : -17 (budget: 19422113)
+New random solution value: -1062001
+Final local search value : -16 (budget: 19342100)
+New random solution value: -1062001
+Final local search value : -16 (budget: 19263570)
+New random solution value: -1062001
+Final local search value : -17 (budget: 19183574)
+New random solution value: -1062001
+Final local search value : -17 (budget: 19106350)
+New random solution value: -1062001
+Final local search value : -15 (budget: 19038511)
+New random solution value: -1062001
+Final local search value : -16 (budget: 18953203)
+New random solution value: -1062001
+Final local search value : -15 (budget: 18881148)
+New random solution value: -1062001
+Final local search value : -16 (budget: 18803930)
+New random solution value: -1062001
+Final local search value : -16 (budget: 18725555)
+New random solution value: -1062001
+Final local search value : -15 (budget: 18650693)
+New random solution value: -1062001
+Final local search value : -17 (budget: 18570367)
+New random solution value: -1062001
+Final local search value : -15 (budget: 18494836)
+New random solution value: -1062001
+Final local search value : -15 (budget: 18414890)
+New random solution value: -1062001
+Final local search value : -15 (budget: 18343292)
+New random solution value: -1062001
+Final local search value : -16 (budget: 18269266)
+New random solution value: -1062001
+Final local search value : -17 (budget: 18187273)
+New random solution value: -1062001
+Final local search value : -15 (budget: 18109302)
+New random solution value: -1062001
+Final local search value : -14 (budget: 18035920)
+New random solution value: -1062001
+Final local search value : -15 (budget: 17960944)
+New random solution value: -1062001
+Final local search value : -17 (budget: 17882450)
+New random solution value: -1062001
+Final local search value : -14 (budget: 17811386)
+New random solution value: -1062001
+Final local search value : -16 (budget: 17724909)
+New random solution value: -1062001
+Final local search value : -16 (budget: 17641251)
+New random solution value: -1062001
+Final local search value : -16 (budget: 17565904)
+New random solution value: -1062001
+Final local search value : -15 (budget: 17493855)
+New random solution value: -1062001
+Final local search value : -16 (budget: 17420304)
+New random solution value: -1062001
+Final local search value : -15 (budget: 17339639)
+New random solution value: -1062001
+Final local search value : -16 (budget: 17264859)
+New random solution value: -1062001
+Final local search value : -15 (budget: 17190692)
+New random solution value: -1062001
+Final local search value : -15 (budget: 17114379)
+New random solution value: -1062001
+Final local search value : -16 (budget: 17037497)
+New random solution value: -1062001
+Final local search value : -15 (budget: 16962791)
+New random solution value: -1062001
+Final local search value : -16 (budget: 16889307)
+New random solution value: -1062001
+Final local search value : -16 (budget: 16802785)
+New random solution value: -1062001
+Final local search value : -14 (budget: 16725404)
+New random solution value: -1062001
+Final local search value : -16 (budget: 16647217)
+New random solution value: -1062001
+Final local search value : -15 (budget: 16572575)
+New random solution value: -1062001
+Final local search value : -15 (budget: 16497645)
+New random solution value: -1062001
+Final local search value : -16 (budget: 16414756)
+New random solution value: -1062001
+Final local search value : -14 (budget: 16345782)
+New random solution value: -1062001
+Final local search value : -16 (budget: 16268535)
+New random solution value: -1062001
+Final local search value : -16 (budget: 16193369)
+New random solution value: -1062001
+Final local search value : -16 (budget: 16116823)
+New random solution value: -1062001
+Final local search value : -14 (budget: 16038756)
+New random solution value: -1062001
+Final local search value : -16 (budget: 15962437)
+New random solution value: -1062001
+Final local search value : -15 (budget: 15892171)
+New random solution value: -1062001
+Final local search value : -14 (budget: 15820730)
+New random solution value: -1062001
+Final local search value : -16 (budget: 15741207)
+New random solution value: -1062001
+Final local search value : -15 (budget: 15667948)
+New random solution value: -1062001
+Final local search value : -15 (budget: 15589605)
+New random solution value: -1062001
+Final local search value : -16 (budget: 15505584)
+New random solution value: -1062001
+Final local search value : -15 (budget: 15428378)
+New random solution value: -1062001
+Final local search value : -15 (budget: 15357591)
+New random solution value: -1062001
+Final local search value : -17 (budget: 15271754)
+New random solution value: -1062001
+Final local search value : -17 (budget: 15185294)
+New random solution value: -1062001
+Final local search value : -16 (budget: 15110803)
+New random solution value: -1062001
+Final local search value : -14 (budget: 15025795)
+New random solution value: -1062001
+Final local search value : -16 (budget: 14950192)
+New random solution value: -1062001
+Final local search value : -15 (budget: 14872731)
+New random solution value: -1062001
+Final local search value : -16 (budget: 14791309)
+New random solution value: -1062001
+Final local search value : -17 (budget: 14718549)
+New random solution value: -1062001
+Final local search value : -17 (budget: 14633318)
+New random solution value: -1062001
+Final local search value : -15 (budget: 14559809)
+New random solution value: -1062001
+Final local search value : -16 (budget: 14479204)
+New random solution value: -1062001
+Final local search value : -16 (budget: 14403741)
+New random solution value: -1062001
+Final local search value : -17 (budget: 14323037)
+New random solution value: -1062001
+Final local search value : -14 (budget: 14250220)
+New random solution value: -1062001
+Final local search value : -15 (budget: 14170805)
+New random solution value: -1062001
+Final local search value : -16 (budget: 14092260)
+New random solution value: -1062001
+Final local search value : -15 (budget: 14012670)
+New random solution value: -1062001
+Final local search value : -14 (budget: 13937825)
+New random solution value: -1062001
+Final local search value : -16 (budget: 13863748)
+New random solution value: -1062001
+Final local search value : -16 (budget: 13784153)
+New random solution value: -1062001
+Final local search value : -16 (budget: 13704189)
+New random solution value: -1062001
+Final local search value : -16 (budget: 13627830)
+New random solution value: -1062001
+Final local search value : -15 (budget: 13555207)
+New random solution value: -1062001
+Final local search value : -16 (budget: 13479093)
+New random solution value: -1062001
+Final local search value : -16 (budget: 13406070)
+New random solution value: -1062001
+Final local search value : -17 (budget: 13320938)
+New random solution value: -1062001
+Final local search value : -16 (budget: 13239949)
+New random solution value: -1062001
+Final local search value : -15 (budget: 13163077)
+New random solution value: -1062001
+Final local search value : -16 (budget: 13080521)
+New random solution value: -1062001
+Final local search value : -15 (budget: 13001183)
+New random solution value: -1062001
+Final local search value : -16 (budget: 12917635)
+New random solution value: -1062001
+Final local search value : -15 (budget: 12846947)
+New random solution value: -1062001
+Final local search value : -16 (budget: 12764608)
+New random solution value: -1062001
+Final local search value : -16 (budget: 12682842)
+New random solution value: -1062001
+Final local search value : -16 (budget: 12598643)
+New random solution value: -1062001
+Final local search value : -16 (budget: 12529456)
+New random solution value: -1062001
+Final local search value : -16 (budget: 12458644)
+New random solution value: -1062001
+Final local search value : -15 (budget: 12389203)
+New random solution value: -1062001
+Final local search value : -15 (budget: 12310920)
+New random solution value: -1062001
+Final local search value : -15 (budget: 12234272)
+New random solution value: -1062001
+Final local search value : -17 (budget: 12164233)
+New random solution value: -1062001
+Final local search value : -17 (budget: 12084372)
+New random solution value: -1062001
+Final local search value : -15 (budget: 12003216)
+New random solution value: -1062001
+Final local search value : -16 (budget: 11924135)
+New random solution value: -1062001
+Final local search value : -16 (budget: 11842730)
+New random solution value: -1062001
+Final local search value : -16 (budget: 11766283)
+New random solution value: -1062001
+Final local search value : -16 (budget: 11686707)
+New random solution value: -1062001
+Final local search value : -15 (budget: 11607607)
+New random solution value: -1062001
+Final local search value : -17 (budget: 11530648)
+New random solution value: -1062001
+Final local search value : -16 (budget: 11454176)
+New random solution value: -1062001
+Final local search value : -15 (budget: 11371777)
+New random solution value: -1062001
+Final local search value : -15 (budget: 11300272)
+New random solution value: -1062001
+Final local search value : -15 (budget: 11228467)
+New random solution value: -1062001
+Final local search value : -16 (budget: 11140154)
+New random solution value: -1062001
+Final local search value : -16 (budget: 11055598)
+New random solution value: -1062001
+Final local search value : -17 (budget: 10970451)
+New random solution value: -1062001
+Final local search value : -16 (budget: 10885018)
+New random solution value: -1062001
+Final local search value : -16 (budget: 10806063)
+New random solution value: -1062001
+Final local search value : -16 (budget: 10725459)
+New random solution value: -1062001
+Final local search value : -15 (budget: 10645509)
+New random solution value: -1062001
+Final local search value : -16 (budget: 10566187)
+New random solution value: -1062001
+Final local search value : -15 (budget: 10482869)
+New random solution value: -1062001
+Final local search value : -15 (budget: 10410318)
+New random solution value: -1062001
+Final local search value : -16 (budget: 10327881)
+New random solution value: -1062001
+Final local search value : -16 (budget: 10245822)
+New random solution value: -1062001
+Final local search value : -14 (budget: 10177015)
+New random solution value: -1062001
+Final local search value : -15 (budget: 10097118)
+New random solution value: -1062001
+Final local search value : -16 (budget: 10012880)
+New random solution value: -1062001
+Final local search value : -15 (budget: 9923578)
+New random solution value: -1062001
+Final local search value : -15 (budget: 9848651)
+New random solution value: -1062001
+Final local search value : -15 (budget: 9774848)
+New random solution value: -1062001
+Final local search value : -16 (budget: 9689674)
+New random solution value: -1062001
+Final local search value : -17 (budget: 9605076)
+New random solution value: -1062001
+Final local search value : -17 (budget: 9509443)
+New random solution value: -1062001
+Final local search value : -17 (budget: 9432361)
+New random solution value: -1062001
+Final local search value : -16 (budget: 9352878)
+New random solution value: -1062001
+Final local search value : -17 (budget: 9272842)
+New random solution value: -1062001
+Final local search value : -17 (budget: 9193857)
+New random solution value: -1062001
+Final local search value : -16 (budget: 9120675)
+New random solution value: -1062001
+Final local search value : -15 (budget: 9046912)
+New random solution value: -1062001
+Final local search value : -15 (budget: 8962796)
+New random solution value: -1062001
+Final local search value : -15 (budget: 8892142)
+New random solution value: -1062001
+Final local search value : -15 (budget: 8816886)
+New random solution value: -1062001
+Final local search value : -17 (budget: 8723802)
+New random solution value: -1062001
+Final local search value : -16 (budget: 8651072)
+New random solution value: -1062001
+Final local search value : -16 (budget: 8561675)
+New random solution value: -1062001
+Final local search value : -16 (budget: 8483022)
+New random solution value: -1062001
+Final local search value : -16 (budget: 8410564)
+New random solution value: -1062001
+Final local search value : -16 (budget: 8328274)
+New random solution value: -1062001
+Final local search value : -17 (budget: 8246424)
+New random solution value: -1062001
+Final local search value : -14 (budget: 8171724)
+New random solution value: -1062001
+Final local search value : -16 (budget: 8096617)
+New random solution value: -1062001
+Final local search value : -16 (budget: 8018754)
+New random solution value: -1062001
+Final local search value : -15 (budget: 7945055)
+New random solution value: -1062001
+Final local search value : -15 (budget: 7867303)
+New random solution value: -1062001
+Final local search value : -16 (budget: 7782009)
+New random solution value: -1062001
+Final local search value : -16 (budget: 7702878)
+New random solution value: -1062001
+Final local search value : -15 (budget: 7625184)
+New random solution value: -1062001
+Final local search value : -15 (budget: 7540950)
+New random solution value: -1062001
+Final local search value : -15 (budget: 7462676)
+New random solution value: -1062001
+Final local search value : -15 (budget: 7389082)
+New random solution value: -1062001
+Final local search value : -15 (budget: 7316958)
+New random solution value: -1062001
+Final local search value : -16 (budget: 7243455)
+New random solution value: -1062001
+Final local search value : -15 (budget: 7164767)
+New random solution value: -1062001
+Final local search value : -15 (budget: 7079795)
+New random solution value: -1062001
+Final local search value : -16 (budget: 7000600)
+New random solution value: -1062001
+Final local search value : -16 (budget: 6928639)
+New random solution value: -1062001
+Final local search value : -15 (budget: 6851959)
+New random solution value: -1062001
+Final local search value : -16 (budget: 6773786)
+New random solution value: -1062001
+Final local search value : -17 (budget: 6692674)
+New random solution value: -1062001
+Final local search value : -15 (budget: 6608389)
+New random solution value: -1062001
+Final local search value : -17 (budget: 6528379)
+New random solution value: -1062001
+Final local search value : -14 (budget: 6449250)
+New random solution value: -1062001
+Final local search value : -16 (budget: 6369279)
+New random solution value: -1062001
+Final local search value : -16 (budget: 6293410)
+New random solution value: -1062001
+Final local search value : -16 (budget: 6224326)
+New random solution value: -1062001
+Final local search value : -16 (budget: 6139749)
+New random solution value: -1062001
+Final local search value : -16 (budget: 6064488)
+New random solution value: -1062001
+Final local search value : -15 (budget: 5992411)
+New random solution value: -1062001
+Final local search value : -16 (budget: 5918033)
+New random solution value: -1062001
+Final local search value : -16 (budget: 5839099)
+New random solution value: -1062001
+Final local search value : -17 (budget: 5764214)
+New random solution value: -1062001
+Final local search value : -15 (budget: 5682119)
+New random solution value: -1062001
+Final local search value : -16 (budget: 5594408)
+New random solution value: -1062001
+Final local search value : -16 (budget: 5521829)
+New random solution value: -1062001
+Final local search value : -15 (budget: 5442954)
+New random solution value: -1062001
+Final local search value : -16 (budget: 5374264)
+New random solution value: -1062001
+Final local search value : -15 (budget: 5293838)
+New random solution value: -1062001
+Final local search value : -15 (budget: 5217014)
+New random solution value: -1062001
+Final local search value : -16 (budget: 5138978)
+New random solution value: -1062001
+Final local search value : -16 (budget: 5055900)
+New random solution value: -1062001
+Final local search value : -16 (budget: 4982062)
+New random solution value: -1062001
+Final local search value : -16 (budget: 4905083)
+New random solution value: -1062001
+Final local search value : -14 (budget: 4832442)
+New random solution value: -1062001
+Final local search value : -15 (budget: 4756643)
+New random solution value: -1062001
+Final local search value : -15 (budget: 4681631)
+New random solution value: -1062001
+Final local search value : -15 (budget: 4606698)
+New random solution value: -1062001
+Final local search value : -16 (budget: 4528192)
+New random solution value: -1062001
+Final local search value : -16 (budget: 4454039)
+New random solution value: -1062001
+Final local search value : -16 (budget: 4375925)
+New random solution value: -1062001
+Final local search value : -15 (budget: 4300282)
+New random solution value: -1062001
+Final local search value : -16 (budget: 4225165)
+New random solution value: -1062001
+Final local search value : -17 (budget: 4143321)
+New random solution value: -1062001
+Final local search value : -15 (budget: 4064740)
+New random solution value: -1062001
+Final local search value : -15 (budget: 3986695)
+New random solution value: -1062001
+Final local search value : -15 (budget: 3910189)
+New random solution value: -1062001
+Final local search value : -15 (budget: 3833091)
+New random solution value: -1062001
+Final local search value : -16 (budget: 3754378)
+New random solution value: -1062001
+Final local search value : -15 (budget: 3685316)
+New random solution value: -1062001
+Final local search value : -16 (budget: 3596051)
+New random solution value: -1062001
+Final local search value : -15 (budget: 3518479)
+New random solution value: -1062001
+Final local search value : -16 (budget: 3441546)
+New random solution value: -1062001
+Final local search value : -15 (budget: 3364040)
+New random solution value: -1062001
+Final local search value : -15 (budget: 3290723)
+New random solution value: -1062001
+Final local search value : -16 (budget: 3214326)
+New random solution value: -1062001
+Final local search value : -16 (budget: 3127505)
+New random solution value: -1062001
+Final local search value : -16 (budget: 3043785)
+New random solution value: -1062001
+Final local search value : -15 (budget: 2965809)
+New random solution value: -1062001
+Final local search value : -16 (budget: 2882933)
+New random solution value: -1062001
+Final local search value : -17 (budget: 2796491)
+New random solution value: -1062001
+Final local search value : -16 (budget: 2703184)
+New random solution value: -1062001
+Final local search value : -15 (budget: 2624872)
+New random solution value: -1062001
+Final local search value : -15 (budget: 2547846)
+New random solution value: -1062001
+Final local search value : -16 (budget: 2469674)
+New random solution value: -1062001
+Final local search value : -16 (budget: 2384779)
+New random solution value: -1062001
+Final local search value : -16 (budget: 2302359)
+New random solution value: -1062001
+Final local search value : -16 (budget: 2226641)
+New random solution value: -1062001
+Final local search value : -16 (budget: 2144567)
+New random solution value: -1062001
+Final local search value : -15 (budget: 2063431)
+New random solution value: -1062001
+Final local search value : -17 (budget: 1987099)
+New random solution value: -1062001
+Final local search value : -15 (budget: 1906339)
+New random solution value: -1062001
+Final local search value : -16 (budget: 1832036)
+New random solution value: -1062001
+Final local search value : -14 (budget: 1759410)
+New random solution value: -1062001
+Final local search value : -15 (budget: 1675578)
+New random solution value: -1062001
+Final local search value : -16 (budget: 1600886)
+New random solution value: -1062001
+Final local search value : -16 (budget: 1524252)
+New random solution value: -1062001
+Final local search value : -15 (budget: 1449956)
+New random solution value: -1062001
+Final local search value : -16 (budget: 1370319)
+New random solution value: -1062001
+Final local search value : -16 (budget: 1295196)
+New random solution value: -1062001
+Final local search value : -16 (budget: 1223282)
+New random solution value: -1062001
+Final local search value : -15 (budget: 1151139)
+New random solution value: -1062001
+Final local search value : -16 (budget: 1070353)
+New random solution value: -1062001
+Final local search value : -15 (budget: 991527)
+New random solution value: -1062001
+Final local search value : -16 (budget: 919728)
+New random solution value: -1062001
+Final local search value : -15 (budget: 838237)
+New random solution value: -1062001
+Final local search value : -17 (budget: 754088)
+New random solution value: -1062001
+Final local search value : -16 (budget: 674194)
+New random solution value: -1062001
+Final local search value : -14 (budget: 598310)
+New random solution value: -1062001
+Final local search value : -16 (budget: 519093)
+New random solution value: -1062001
+Final local search value : -15 (budget: 442125)
+New random solution value: -1062001
+Final local search value : -15 (budget: 358110)
+New random solution value: -1062001
+Final local search value : -17 (budget: 275946)
+New random solution value: -1062001
+Final local search value : -16 (budget: 194845)
+New random solution value: -1062001
+Final local search value : -16 (budget: 112783)
+New random solution value: -1062001
+Final local search value : -14 (budget: 43571)
+New random solution value: -1062001
+Final local search value : -41009 (budget: 0)
+New random solution value: -1062001
+best = ColorSolution([10, 1, 6, 8, 5, 5, 4, 3, 11, 13, 7, 9, 2, 7, 3, 7, 1, 4, 13, 2, 11, 5, 2, 10, 6, 10, 11, 12, 3, 6, 13, 1, 2, 3, 5, 9, 4, 10, 12, 9, 9, 9, 3, 1, 7, 3, 4, 8, 12, 2, 1, 8, 12, 8, 12, 6, 11, 10, 5, 7], 0, [5, 5, 6, 4, 5, 4, 5, 4, 5, 5, 4, 5, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 13, 13)
+s.node_color = [10, 1, 6, 8, 5, 5, 4, 3, 11, 13, 7, 9, 2, 7, 3, 7, 1, 4, 13, 2, 11, 5, 2, 10, 6, 10, 11, 12, 3, 6, 13, 1, 2, 3, 5, 9, 4, 10, 12, 9, 9, 9, 3, 1, 7, 3, 4, 8, 12, 2, 1, 8, 12, 8, 12, 6, 11, 10, 5, 7]
+s.total_violations = 0
+violations_from_scratch(s.node_color, inst.A) = 0
+s.times_color_used = [5, 5, 6, 4, 5, 4, 5, 4, 5, 5, 4, 5, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+tcu_from_scratch(s.node_color, inst.h) = [5, 5, 6, 4, 5, 4, 5, 4, 5, 5, 4, 5, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+best_obj = -13
+
+real	0m37.322s
+user	0m37.299s
+sys	0m0.556s

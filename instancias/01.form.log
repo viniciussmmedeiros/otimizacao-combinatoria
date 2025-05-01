@@ -1,0 +1,50 @@
+Running HiGHS 1.7.2 (git hash: 5ce7a2753): Copyright (c) 2024 HiGHS under MIT licence terms
+Coefficient ranges:
+  Matrix [1e+00, 1e+00]
+  Cost   [1e+00, 1e+00]
+  Bound  [1e+00, 1e+00]
+  RHS    [1e+00, 1e+00]
+Presolving model
+338 rows, 77 cols, 726 nonzeros  0s
+212 rows, 77 cols, 474 nonzeros  0s
+163 rows, 75 cols, 450 nonzeros  0s
+141 rows, 75 cols, 429 nonzeros  0s
+Objective function is integral with scale 1
+
+Solving MIP model with:
+   141 rows
+   75 cols (75 binary, 0 integer, 0 implied int., 0 continuous)
+   429 nonzeros
+
+        Nodes      |    B&B Tree     |            Objective Bounds              |  Dynamic Constraints |       Work      
+     Proc. InQueue |  Leaves   Expl. | BestBound       BestSol              Gap |   Cuts   InLp Confl. | LpIters     Time
+
+         0       0         0   0.00%   2               inf                  inf        0      0      0         0     0.0s
+ R       0       0         0   0.00%   3               3                  0.00%        0      0      0        88     0.0s
+
+Solving report
+  Status            Optimal
+  Primal bound      3
+  Dual bound        3
+  Gap               0% (tolerance: 0.01%)
+  Solution status   feasible
+                    3 (objective)
+                    0 (bound viol.)
+                    0 (int. viol.)
+                    0 (row viol.)
+  Timing            0.01 (total)
+                    0.00 (presolve)
+                    0.00 (postsolve)
+  Nodes             1
+  LP iterations     100 (total)
+                    0 (strong br.)
+                    0 (separation)
+                    0 (heuristics)
+ARGS = ["1", "300", "selected_instances/01.txt"]
+instance = (10, 18, [[2, 4, 9, 6, 7], [1, 6, 8, 3, 9], [8, 5, 2], [1, 8], [6, 3, 8], [10, 2, 5, 1, 7], [8, 1, 6], [3, 7, 9, 4, 2, 5], [8, 1, 2], [6]], 7)
+round.(value.(model[:x])) = [1.0 0.0 0.0 0.0 0.0 0.0 0.0; 0.0 1.0 0.0 0.0 0.0 0.0 0.0; 0.0 0.0 1.0 0.0 0.0 0.0 0.0; 0.0 1.0 0.0 0.0 0.0 0.0 0.0; 0.0 1.0 0.0 0.0 0.0 0.0 0.0; 0.0 0.0 1.0 0.0 0.0 0.0 0.0; 0.0 1.0 0.0 0.0 0.0 0.0 0.0; 1.0 0.0 0.0 0.0 0.0 0.0 0.0; 0.0 0.0 1.0 0.0 0.0 0.0 0.0; 1.0 0.0 0.0 0.0 0.0 0.0 0.0]
+round.(value.(model[:y])) = [1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0]
+(n, m, A) = (10, 18, [[2, 4, 9, 6, 7], [1, 6, 8, 3, 9], [8, 5, 2], [1, 8], [6, 3, 8], [10, 2, 5, 1, 7], [8, 1, 6], [3, 7, 9, 4, 2, 5], [8, 1, 2], [6]])
+ 1 (1), 2 (2), 3 (3), 4 (2), 5 (2), 6 (3), 7 (2), 8 (1), 9 (3), 10 (1),
+objective_bound(model) = 3.0
+objective_value(model) = 3.0
