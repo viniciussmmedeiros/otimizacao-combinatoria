@@ -1,3 +1,5 @@
+import sys
+
 def metropolis():
     pass
     # input: sInicial, temperatura, qIteracoes, rng
@@ -28,5 +30,15 @@ def simulated_annealing():
     #   t = r*t
     # return melhorSolucaoEncontrada
 
+def main():
+    if(len(sys.argv) != 4):
+        print("Uso incorreto, deve ser: python3 simulated_annealing.py <caminho_do_arquivo> <iterações> <variação>")
+        sys.exit(1)
 
-simulated_annealing()
+    filePath = sys.argv[1]
+    iterations = sys.argv[2]
+    variation = sys.argv[3]
+
+    print(f"Caminho: {filePath}, Iterações: {iterations}, Variação: {variation}")
+
+main()

@@ -6,3 +6,5 @@ Objetivo: Atribuir cada criminoso a uma penintenciária (numeradas de 1 em diant
 
 Formato das instâncias:
 A primeira linha do arquivo informa o número de criminosos n e o número alianças m. As m linhas seguintes apresentam pares de códigos de criminosos que possuem uma aliança, sempre apresentando o menor valor dos dois primeiro.
+
+Instruções para executar o código-fonte em LINUX:
