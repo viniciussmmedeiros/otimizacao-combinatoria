@@ -1,34 +1,70 @@
 import sys
+import random
+import math
+import time
 
-def metropolis():
-    pass
-    # input: sInicial, temperatura, qIteracoes, rng
-    # output: melhorSolucaoEncontrada
-    # s = melhorSolucaoEncontrada = sInicial
-    # for qIteracoes
-    #   for s' in vizinhos(s, rng)
-    #     delta = abs(f(s') - f(s))
-    #     if s' > melhorSolucaoEncontrada
-    #       melhorSolucaoEncontrada = s'
-    #     if s' > s
-    #       s = s'
-    #     else if rand(rng) <= exp(-delta/temperatura)
-    #       s = s'
-    # return melhorSolucaoEncontrada
+# Função objetivo -- formulação da separação dos comparsas
+def f(x):
+    return x
 
-def simulated_annealing():
-    pass
-    # input: sInicial, temperaturaInicial, temperaturaFinal, m, r, rng
-    # output: melhorSolucaoEncontrada
-    # t = temperaturaInicial
-    # melhorSolucaoEncontrada = s = sInicial
-    # while t > temperaturaFinal
-    #   algumas iteracoes com t constante
-    #   s = metropolis(s, t, m, rng)
-    #   if s > melhorSolucaoEncontrada
-    #     melhorSolucaoEncontrada = s
-    #   t = r*t
-    # return melhorSolucaoEncontrada
+# Gera os vizinhos em ordem aleatória
+def generate_neighbors(s, rng):
+    n = [s + 1, s - 1]
+    rng.shuffle(n)
+    return n
+
+# Metropolis
+# sInicial, t, n, r -> melhor solução encontrada
+def metropolis(sInicial, t, n, r, startTime):
+    # s = s* = sInicial
+    s = best = sInicial
+    # for n iterações do
+    for _ in range(n):
+        # for s' E N(s) em ordem aleatória (usa R) do
+        for s_prime in generate_neighbors(s, r):
+            # delta = abs(f(s') - f(s))
+            delta = abs(f(s_prime) - f(s))
+            # if s' é melhor que s* then
+            if f(s_prime) > f(best):
+                # s* = s'
+                best = s_prime
+                dTime = time.time() - startTime
+                print(f"Tempo: {dTime:.2f}s, Melhor solução: x = {best}")
+            # if s' é melhor que s then
+            if f(s_prime) > f(s):
+                # s = s'
+                s = s_prime
+            # else if rand(R) <= e^(-delta/T) then
+            elif r.random() <= math.exp(-delta / t):
+                # s = s'
+                s = s_prime
+    # return s*
+    return best
+
+# Simulated Annealing
+# sInicial, Ti, Tf, m, r, rng -> melhor solução encontrada na busca
+def simulated_annealing(sInicial, ti, tf, m, r, rng):
+    # t = Ti
+    t = ti
+    # s* = s = sInicial
+    best = s = sInicial
+
+    startTime = time.time()
+
+    # while t >= Tf
+    while t >= tf:
+        # s = metropolis(s,t,m,rng)
+        s = metropolis(s, t, m, rng, startTime)
+        # if s > s*
+        if f(s) > f(best):
+            # s* = s
+            best = s
+            dTime = time.time() - startTime
+            print(f"Tempo: {dTime:.2f}s, Melhor solução: x = {best}")
+        # t = r*t
+        t *= r
+    # return s*
+    return best
 
 def main():
     if(len(sys.argv) != 4):
@@ -40,5 +76,9 @@ def main():
     variation = sys.argv[3]
 
     print(f"Caminho: {filePath}, Iterações: {iterations}, Variação: {variation}")
+
+
+    best = simulated_annealing(0, ti=100, tf=0.1, m=10, r=0.95, rng=random.Random())
+    print(f"Melhor solução encontrada: x = {best}")
 
 main()
