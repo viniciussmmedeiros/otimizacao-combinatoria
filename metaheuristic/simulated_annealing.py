@@ -3,82 +3,114 @@ import random
 import math
 import time
 
-# Função objetivo -- formulação da separação dos comparsas
-def f(x):
-    return x
+aliancas = None
 
-# Gera os vizinhos em ordem aleatória
-def generate_neighbors(s, rng):
-    n = [s + 1, s - 1]
-    rng.shuffle(n)
-    return n
+def le_instancia(caminho):
+    with open(caminho) as f:
+        n, m = map(int, f.readline().split())
+        aliancas = [tuple(map(int, line.split())) for line in f]
+    return n, aliancas
+
+# Função objetivo
+def f(solucao):
+    penalizacao = 0
+    penitenciariasUsadas = len(set(solucao))
+    for a, b in aliancas:
+        if solucao[a - 1] == solucao[b - 1]:
+            penalizacao += 10000
+    return penitenciariasUsadas + penalizacao
+
+# Gera os vizinhos
+def gera_vizinhos(solucao, rng):
+    vizinhos = solucao.copy()
+    criminoso = rng.randint(0, len(solucao) - 1)
+    penitenciariaAtual = vizinhos[criminoso]
+    maiorIndicePenitenciaria = max(vizinhos)
+    novaPenitenciaria = rng.choice([p for p in range(1, maiorIndicePenitenciaria + 2) if p != penitenciariaAtual])
+    vizinhos[criminoso] = novaPenitenciaria
+    return vizinhos
 
 # Metropolis
 # sInicial, t, n, r -> melhor solução encontrada
-def metropolis(sInicial, t, n, r, startTime):
+def metropolis(solucaoInicial, temperatura, iteracoes, rng, tempoInicio):
     # s = s* = sInicial
-    s = best = sInicial
+    solucao = solucaoInicial.copy()
+    melhorSolucao = solucao.copy()
+    melhorValor = f(melhorSolucao)
+
     # for n iterações do
-    for _ in range(n):
+    for _ in range(iteracoes):
         # for s' E N(s) em ordem aleatória (usa R) do
-        for s_prime in generate_neighbors(s, r):
-            # delta = abs(f(s') - f(s))
-            delta = abs(f(s_prime) - f(s))
+        solucaoVizinho = gera_vizinhos(solucao, rng)
+
+        valorAtual = f(solucao)
+        valorVizinho = f(solucaoVizinho)
+
+        # delta = abs(f(s') - f(s))
+        delta = abs(valorVizinho - valorAtual)
+
+        # if s' é melhor que s then
+        if valorVizinho < valorAtual:
+            solucao = solucaoVizinho.copy()
             # if s' é melhor que s* then
-            if f(s_prime) > f(best):
-                # s* = s'
-                best = s_prime
-                dTime = time.time() - startTime
-                print(f"Tempo: {dTime:.2f}s, Melhor solução: x = {best}")
-            # if s' é melhor que s then
-            if f(s_prime) > f(s):
-                # s = s'
-                s = s_prime
-            # else if rand(R) <= e^(-delta/T) then
-            elif r.random() <= math.exp(-delta / t):
-                # s = s'
-                s = s_prime
+            if valorVizinho < melhorValor:
+                melhorSolucao = solucaoVizinho.copy()
+                melhorValor = valorVizinho
+        # else if rand(R) <= e^(-delta/T) then
+        elif rng.random() < math.exp(-delta / temperatura):
+            solucao = solucaoVizinho.copy()
+
     # return s*
-    return best
+    return melhorSolucao
 
 # Simulated Annealing
 # sInicial, Ti, Tf, m, r, rng -> melhor solução encontrada na busca
-def simulated_annealing(sInicial, ti, tf, m, r, rng):
+def simulated_annealing(solucaoInicial, temperaturaInicial, temperaturaFinal, iteracoes, taxaResfriamento, rng):
     # t = Ti
-    t = ti
-    # s* = s = sInicial
-    best = s = sInicial
+    temperaturaAtual = temperaturaInicial
 
-    startTime = time.time()
+    # s* = s = sInicial
+    melhorSolucao = solucaoAtual = solucaoInicial
+
+    tempoInicio = time.time()
 
     # while t >= Tf
-    while t >= tf:
+    while temperaturaAtual >= temperaturaFinal:
         # s = metropolis(s,t,m,rng)
-        s = metropolis(s, t, m, rng, startTime)
+        solucaoAtual = metropolis(solucaoAtual, temperaturaAtual, iteracoes, rng, tempoInicio)
         # if s > s*
-        if f(s) > f(best):
+        if f(solucaoAtual) < f(melhorSolucao):
             # s* = s
-            best = s
-            dTime = time.time() - startTime
-            print(f"Tempo: {dTime:.2f}s, Melhor solução: x = {best}")
+            melhorSolucao = solucaoAtual
+            tempoTranscorrido = time.time() - tempoInicio
+            print(f"Tempo: {tempoTranscorrido:.2f}s, Melhor solução: x = {melhorSolucao}")
         # t = r*t
-        t *= r
+        temperaturaAtual *= taxaResfriamento
     # return s*
-    return best
+    return melhorSolucao
 
 def main():
+    global aliancas
     if(len(sys.argv) != 4):
         print("Uso incorreto, deve ser: python3 simulated_annealing.py <caminho_do_arquivo> <iterações> <variação>")
         sys.exit(1)
 
-    filePath = sys.argv[1]
-    iterations = sys.argv[2]
-    variation = sys.argv[3]
+    caminhoArquivo = sys.argv[1]
+    iteracoes = int(sys.argv[2])
+    variacao = sys.argv[3]
 
-    print(f"Caminho: {filePath}, Iterações: {iterations}, Variação: {variation}")
+    print(f"Caminho: {caminhoArquivo}, Iterações: {iteracoes}, Variação: {variacao}")
 
+    quantidadeCriminosos, aliancas = le_instancia(caminhoArquivo)
 
-    best = simulated_annealing(0, ti=100, tf=0.1, m=10, r=0.95, rng=random.Random())
-    print(f"Melhor solução encontrada: x = {best}")
+    best = simulated_annealing(
+        solucaoInicial=list(range(quantidadeCriminosos)), 
+        temperaturaInicial=100, 
+        temperaturaFinal=0.1, 
+        iteracoes=iteracoes, 
+        taxaResfriamento=0.99, 
+        rng=random.Random())
+        
+    print(f"Melhor solução encontrada: x = {len(set(best))}")
 
 main()
