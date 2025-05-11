@@ -91,21 +91,23 @@ def gera_vizinhos(solucao, rng, temperatura):
     novasPenitenciarias = []
     
     # Usamos a temperatura para ajudar a definir a quantidade de vizinhos, tentando explorar
-    # ainda mais o espaço de soluções no início
-    numVizinhos = max(1, int(temperatura / 10))
-    numVizinhos = min(numVizinhos, len(solucao) * 2)
+    # ainda mais o espaço de soluções no início.
+    numVizinhos = max(1, int(temperatura / 10)) # garante que pelo menos 1 vizinho seja selecionado quando temperatura estiver muito baixa
     
-    maiorIndicePenitenciaria = max(solucao)
-    penitenciarias_possiveis = list(range(1, maiorIndicePenitenciaria + 2))
+    maiorIndicePenitenciaria = max(solucao) # pega o maior valor de penitenciária em uso
+    penitenciariasPossiveis = list(range(1, maiorIndicePenitenciaria + 2)) # incrementa em 2 para tentar sair de um ótimo local
     
     for _ in range(numVizinhos):
-        criminoso = rng.randint(0, len(solucao) - 1)
+        criminoso = rng.randint(0, len(solucao) - 1) # escolhe um criminoso aleatório, lembrando que len(solucao) é o número de criminosos
         penitenciariaAtual = solucao[criminoso]
-        novaPenitenciaria = rng.choice([p for p in penitenciarias_possiveis if p != penitenciariaAtual])
+        # o código [p for p in penitenciariasPossiveis if p != penitenciariaAtual] cria a lista de penitencárias tirando a que o criminoso está
+        # rng choice escolhe aleatoriamente um item dessa lista
+        novaPenitenciaria = rng.choice([p for p in penitenciariasPossiveis if p != penitenciariaAtual])
         
         vizinho = solucao.copy()
         vizinho[criminoso] = novaPenitenciaria
         
+        # cada vizinho difere da solução atual por uma única movimentação
         vizinhos.append(vizinho)
         criminososSelecionados.append(criminoso)
         novasPenitenciarias.append(novaPenitenciaria)
