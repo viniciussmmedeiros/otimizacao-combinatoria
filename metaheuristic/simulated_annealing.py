@@ -3,7 +3,6 @@ import random
 import math
 import time
 
-aliancas = None
 
 def le_instancia(caminho):
     with open(caminho) as f:
@@ -12,7 +11,7 @@ def le_instancia(caminho):
     return n, aliancas
 
 # Função objetivo
-def f(solucao):
+def f(solucao, aliancas):
     penalizacao = 0
     penitenciariasUsadas = len(set(solucao))
     for a, b in aliancas:
@@ -32,19 +31,19 @@ def gera_vizinhos(solucao, rng):
 
 # Metropolis
 # sInicial, t, n, r -> melhor solução encontrada
-def metropolis(solucaoInicial, temperatura, iteracoes, rng, tempoInicio):
+def metropolis(solucaoInicial, temperatura, iteracoes, rng, tempoInicio, aliancas):
     # s = s* = sInicial
     solucao = solucaoInicial.copy()
     melhorSolucao = solucao.copy()
-    melhorValor = f(melhorSolucao)
+    melhorValor = f(melhorSolucao, aliancas)
 
     # for n iterações do
     for _ in range(iteracoes):
         # for s' E N(s) em ordem aleatória (usa R) do
         solucaoVizinho = gera_vizinhos(solucao, rng)
 
-        valorAtual = f(solucao)
-        valorVizinho = f(solucaoVizinho)
+        valorAtual = f(solucao, aliancas)
+        valorVizinho = f(solucaoVizinho, aliancas)
 
         # delta = abs(f(s') - f(s))
         delta = abs(valorVizinho - valorAtual)
@@ -65,7 +64,7 @@ def metropolis(solucaoInicial, temperatura, iteracoes, rng, tempoInicio):
 
 # Simulated Annealing
 # sInicial, Ti, Tf, m, r, rng -> melhor solução encontrada na busca
-def simulated_annealing(solucaoInicial, temperaturaInicial, temperaturaFinal, iteracoes, taxaResfriamento, rng, tempoInicio):
+def simulated_annealing(solucaoInicial, temperaturaInicial, temperaturaFinal, iteracoes, taxaResfriamento, rng, tempoInicio, aliancas):
     # t = Ti
     temperaturaAtual = temperaturaInicial
 
@@ -75,9 +74,9 @@ def simulated_annealing(solucaoInicial, temperaturaInicial, temperaturaFinal, it
     # while t >= Tf
     while temperaturaAtual >= temperaturaFinal:
         # s = metropolis(s,t,m,rng)
-        solucaoAtual = metropolis(solucaoAtual, temperaturaAtual, iteracoes, rng, tempoInicio)
+        solucaoAtual = metropolis(solucaoAtual, temperaturaAtual, iteracoes, rng, tempoInicio, aliancas)
         # if s > s*
-        if f(solucaoAtual) < f(melhorSolucao):
+        if f(solucaoAtual, aliancas) < f(melhorSolucao, aliancas):
             # s* = s
             melhorSolucao = solucaoAtual
             tempoTranscorrido = time.time() - tempoInicio
@@ -89,7 +88,6 @@ def simulated_annealing(solucaoInicial, temperaturaInicial, temperaturaFinal, it
     return melhorSolucao
 
 def main():
-    global aliancas
     if(len(sys.argv) != 4):
         print("Uso incorreto, deve ser: python3 simulated_annealing.py <caminho_do_arquivo> <iterações> <variação>")
         sys.exit(1)
@@ -111,7 +109,8 @@ def main():
         iteracoes=iteracoes, 
         taxaResfriamento=0.99, 
         rng=random.Random(semente),
-        tempoInicio=tempoInicio)
+        tempoInicio=tempoInicio,
+        aliancas=aliancas)
         
     tempoTranscorrido = time.time() - tempoInicio
     print(f"Tempo: {tempoTranscorrido:.2f}s, Melhor solução = {len(set(melhorSolucao))}")
