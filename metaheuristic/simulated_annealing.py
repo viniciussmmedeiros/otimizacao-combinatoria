@@ -29,6 +29,25 @@ def gera_vizinhos(solucao, rng):
     vizinhos[criminoso] = novaPenitenciaria
     return vizinhos
 
+# Função para converter a representação por criminosos para representação por penitenciárias
+def converte_representacao(solucao):
+    # Identifica todas as penitenciárias usadas
+    penitenciarias_usadas = set(solucao)
+
+    # Cria uma lista de listas onde cada lista interna representa uma penitenciária
+    representacao_por_penitenciaria = [[] for _ in range(len(penitenciarias_usadas))]
+
+    # Mapeia IDs de penitenciárias para índices sequenciais (0 a N-1)
+    mapeamento_penitenciarias = {id_pen: idx for idx, id_pen in enumerate(sorted(penitenciarias_usadas))}
+
+    # Distribui os criminosos nas listas de suas respectivas penitenciárias
+    for criminoso, penitenciaria in enumerate(solucao):
+        idx_penitenciaria = mapeamento_penitenciarias[penitenciaria]
+        representacao_por_penitenciaria[idx_penitenciaria].append(
+            criminoso + 1)  # +1 porque os criminosos são numerados a partir de 1
+
+    return representacao_por_penitenciaria
+
 # Metropolis
 # sInicial, t, n, r -> melhor solução encontrada
 def metropolis(solucaoInicial, temperatura, iteracoes, rng, tempoInicio, aliancas):
@@ -80,15 +99,19 @@ def simulated_annealing(solucaoInicial, temperaturaInicial, temperaturaFinal, it
             # s* = s
             melhorSolucao = solucaoAtual
             tempoTranscorrido = time.time() - tempoInicio
-            representacao = [(i + 1, p) for i, p in enumerate(melhorSolucao)]
-            print(f"Tempo: {tempoTranscorrido:.2f}s, Melhor solução: {len(set(melhorSolucao))}, Representação: {representacao}")
+
+            representacao_por_penitenciaria = converte_representacao(melhorSolucao)
+
+            print(f"Tempo: {tempoTranscorrido:.2f}s, Penitenciárias: {len(representacao_por_penitenciaria)}")
+            print(f"Representação por penitenciária: {representacao_por_penitenciaria}")
+
         # t = r*t
         temperaturaAtual *= taxaResfriamento
     # return s*
     return melhorSolucao
 
 def main():
-    if(len(sys.argv) != 4):
+    if len(sys.argv) != 4:
         print("Uso incorreto, deve ser: python3 simulated_annealing.py <caminho_do_arquivo> <iterações> <variação>")
         sys.exit(1)
 
@@ -103,16 +126,19 @@ def main():
     tempoInicio = time.time()
 
     melhorSolucao = simulated_annealing(
-        solucaoInicial=list(range(quantidadeCriminosos)), 
-        temperaturaInicial=100, 
-        temperaturaFinal=0.1, 
-        iteracoes=iteracoes, 
-        taxaResfriamento=0.99, 
+        solucaoInicial=list(range(1, quantidadeCriminosos + 1)),
+        # Começamos com cada criminoso em sua própria penitenciária
+        temperaturaInicial=100,
+        temperaturaFinal=0.1,
+        iteracoes=iteracoes,
+        taxaResfriamento=0.99,
         rng=random.Random(semente),
         tempoInicio=tempoInicio,
         aliancas=aliancas)
         
     tempoTranscorrido = time.time() - tempoInicio
-    print(f"Tempo: {tempoTranscorrido:.2f}s, Melhor solução = {len(set(melhorSolucao))}")
+    representacao_final = converte_representacao(melhorSolucao)
+    print(f"Tempo total: {tempoTranscorrido:.2f}s, Número de penitenciárias: {len(representacao_final)}")
+    print(f"Representação final por penitenciária: {representacao_final}")
 
 main()
