@@ -8,7 +8,14 @@ def le_instancia(caminho):
     with open(caminho) as f:
         n, m = map(int, f.readline().split())
         aliancas = [tuple(map(int, line.split())) for line in f]
-    return n, aliancas
+
+    # cria uma lista de listas, representando as alianças de cada criminoso para fácil acesso
+    aliancasCriminoso = [[] for _ in range(n)]
+    for a, b in aliancas:
+        aliancasCriminoso[a - 1].append(b - 1)
+        aliancasCriminoso[b - 1].append(a - 1)
+    print(aliancasCriminoso)
+    return n, aliancas, aliancasCriminoso
 
 # Função objetivo
 def f(solucao, aliancas):
@@ -19,6 +26,28 @@ def f(solucao, aliancas):
             penalizacao += 10000
     return penitenciariasUsadas + penalizacao
 
+# função de penaização, para evitar recalcular toda a função objetivo
+def delta_f(solucao, criminoso, novaPenitenciaria, aliancasCriminoso):
+    penalizacaoAntiga = 0
+    penalizacaoNova = 0
+    penitenciariaAntiga = solucao[criminoso]
+    
+    # calculamos a penalização da penitenciária antiga e da nova
+    for aliado in aliancasCriminoso[criminoso]:
+        if solucao[aliado] == penitenciariaAntiga:
+            penalizacaoAntiga += 10000
+        if solucao[aliado] == novaPenitenciaria:
+            penalizacaoNova += 10000
+    
+    # calculamos o impacto da realocação do criminoso na quantidade de penitenciárias
+    penitenciariasAntes = len(set(solucao))
+    solucao_temp = solucao.copy()
+    solucao_temp[criminoso] = novaPenitenciaria
+    penitenciariasDepois = len(set(solucao_temp))
+    deltaPenitenciarias = penitenciariasDepois - penitenciariasAntes
+    
+    return (penalizacaoNova - penalizacaoAntiga) + deltaPenitenciarias
+
 # Gera os vizinhos
 def gera_vizinhos(solucao, rng):
     vizinhos = solucao.copy()
@@ -27,7 +56,7 @@ def gera_vizinhos(solucao, rng):
     maiorIndicePenitenciaria = max(vizinhos)
     novaPenitenciaria = rng.choice([p for p in range(1, maiorIndicePenitenciaria + 2) if p != penitenciariaAtual])
     vizinhos[criminoso] = novaPenitenciaria
-    return vizinhos
+    return vizinhos, criminoso, novaPenitenciaria
 
 # Função para converter a representação por criminosos para representação por penitenciárias
 def converte_representacao(solucao):
@@ -50,26 +79,26 @@ def converte_representacao(solucao):
 
 # Metropolis
 # sInicial, t, n, r -> melhor solução encontrada
-def metropolis(solucaoInicial, temperatura, iteracoes, rng, tempoInicio, aliancas):
+def metropolis(solucaoInicial, temperatura, iteracoes, rng, tempoInicio, aliancas, aliancasCriminoso):
     # s = s* = sInicial
     solucao = solucaoInicial.copy()
     melhorSolucao = solucao.copy()
-    melhorValor = f(melhorSolucao, aliancas)
+    valorAtual = f(melhorSolucao, aliancas)
+    melhorValor = valorAtual
 
     # for n iterações do
     for _ in range(iteracoes):
         # for s' E N(s) em ordem aleatória (usa R) do
-        solucaoVizinho = gera_vizinhos(solucao, rng)
-
-        valorAtual = f(solucao, aliancas)
-        valorVizinho = f(solucaoVizinho, aliancas)
-
+        solucaoVizinho, criminoso, novaPenitenciaria = gera_vizinhos(solucao, rng)
+        
         # delta = abs(f(s') - f(s))
-        delta = abs(valorVizinho - valorAtual)
+        delta = delta_f(solucao, criminoso, novaPenitenciaria, aliancasCriminoso)
+        valorVizinho = valorAtual + delta
 
         # if s' é melhor que s then
         if valorVizinho < valorAtual:
             solucao = solucaoVizinho.copy()
+            valorAtual = valorVizinho
             # if s' é melhor que s* then
             if valorVizinho < melhorValor:
                 melhorSolucao = solucaoVizinho.copy()
@@ -77,15 +106,18 @@ def metropolis(solucaoInicial, temperatura, iteracoes, rng, tempoInicio, alianca
         # else if rand(R) <= e^(-delta/T) then
         elif rng.random() < math.exp(-delta / temperatura):
             solucao = solucaoVizinho.copy()
+            valorAtual = valorVizinho
 
     # return s*
-    return melhorSolucao
+    return melhorSolucao, melhorValor
 
 # Simulated Annealing
 # sInicial, Ti, Tf, m, r, rng -> melhor solução encontrada na busca
-def simulated_annealing(solucaoInicial, temperaturaInicial, temperaturaFinal, iteracoes, taxaResfriamento, rng, tempoInicio, aliancas):
+def simulated_annealing(solucaoInicial, temperaturaInicial, temperaturaFinal, iteracoes, taxaResfriamento, rng, tempoInicio, aliancas, aliancasCriminoso):
     # t = Ti
     temperaturaAtual = temperaturaInicial
+
+    melhorValor = f(solucaoInicial, aliancas)
 
     # s* = s = sInicial
     melhorSolucao = solucaoAtual = solucaoInicial
@@ -93,11 +125,12 @@ def simulated_annealing(solucaoInicial, temperaturaInicial, temperaturaFinal, it
     # while t >= Tf
     while temperaturaAtual >= temperaturaFinal:
         # s = metropolis(s,t,m,rng)
-        solucaoAtual = metropolis(solucaoAtual, temperaturaAtual, iteracoes, rng, tempoInicio, aliancas)
+        solucaoAtual, valorAtual = metropolis(solucaoAtual, temperaturaAtual, iteracoes, rng, tempoInicio, aliancas, aliancasCriminoso)
         # if s > s*
-        if f(solucaoAtual, aliancas) < f(melhorSolucao, aliancas):
+        if valorAtual < melhorValor:
             # s* = s
             melhorSolucao = solucaoAtual
+            melhorValor = valorAtual
             tempoTranscorrido = time.time() - tempoInicio
 
             representacao_por_penitenciaria = converte_representacao(melhorSolucao)
@@ -121,7 +154,7 @@ def main():
 
     print(f"Caminho: {caminhoArquivo}, Iterações: {iteracoes}, Variação: {semente}")
 
-    quantidadeCriminosos, aliancas = le_instancia(caminhoArquivo)
+    quantidadeCriminosos, aliancas, aliancasCriminoso = le_instancia(caminhoArquivo)
 
     tempoInicio = time.time()
 
@@ -134,7 +167,8 @@ def main():
         taxaResfriamento=0.99,
         rng=random.Random(semente),
         tempoInicio=tempoInicio,
-        aliancas=aliancas)
+        aliancas=aliancas,
+        aliancasCriminoso=aliancasCriminoso)
         
     tempoTranscorrido = time.time() - tempoInicio
     representacao_final = converte_representacao(melhorSolucao)
