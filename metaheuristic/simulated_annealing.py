@@ -97,9 +97,9 @@ def main():
 
     caminhoArquivo = sys.argv[1]
     iteracoes = int(sys.argv[2])
-    variacao = sys.argv[3]
+    semente = int(sys.argv[3])
 
-    print(f"Caminho: {caminhoArquivo}, Iterações: {iteracoes}, Variação: {variacao}")
+    print(f"Caminho: {caminhoArquivo}, Iterações: {iteracoes}, Variação: {semente}")
 
     quantidadeCriminosos, aliancas = le_instancia(caminhoArquivo)
 
@@ -109,7 +109,7 @@ def main():
         temperaturaFinal=0.1, 
         iteracoes=iteracoes, 
         taxaResfriamento=0.99, 
-        rng=random.Random())
+        rng=random.Random(semente))
         
     print(f"Melhor solução encontrada: x = {len(set(best))}")
 
