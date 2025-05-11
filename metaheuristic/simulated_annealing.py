@@ -65,14 +65,12 @@ def metropolis(solucaoInicial, temperatura, iteracoes, rng, tempoInicio):
 
 # Simulated Annealing
 # sInicial, Ti, Tf, m, r, rng -> melhor solução encontrada na busca
-def simulated_annealing(solucaoInicial, temperaturaInicial, temperaturaFinal, iteracoes, taxaResfriamento, rng):
+def simulated_annealing(solucaoInicial, temperaturaInicial, temperaturaFinal, iteracoes, taxaResfriamento, rng, tempoInicio):
     # t = Ti
     temperaturaAtual = temperaturaInicial
 
     # s* = s = sInicial
     melhorSolucao = solucaoAtual = solucaoInicial
-
-    tempoInicio = time.time()
 
     # while t >= Tf
     while temperaturaAtual >= temperaturaFinal:
@@ -83,7 +81,8 @@ def simulated_annealing(solucaoInicial, temperaturaInicial, temperaturaFinal, it
             # s* = s
             melhorSolucao = solucaoAtual
             tempoTranscorrido = time.time() - tempoInicio
-            print(f"Tempo: {tempoTranscorrido:.2f}s, Melhor solução: x = {melhorSolucao}")
+            representacao = [(i + 1, p) for i, p in enumerate(melhorSolucao)]
+            print(f"Tempo: {tempoTranscorrido:.2f}s, Melhor solução: {len(set(melhorSolucao))}, Representação: {representacao}")
         # t = r*t
         temperaturaAtual *= taxaResfriamento
     # return s*
@@ -103,14 +102,18 @@ def main():
 
     quantidadeCriminosos, aliancas = le_instancia(caminhoArquivo)
 
-    best = simulated_annealing(
+    tempoInicio = time.time()
+
+    melhorSolucao = simulated_annealing(
         solucaoInicial=list(range(quantidadeCriminosos)), 
         temperaturaInicial=100, 
         temperaturaFinal=0.1, 
         iteracoes=iteracoes, 
         taxaResfriamento=0.99, 
-        rng=random.Random(semente))
+        rng=random.Random(semente),
+        tempoInicio=tempoInicio)
         
-    print(f"Melhor solução encontrada: x = {len(set(best))}")
+    tempoTranscorrido = time.time() - tempoInicio
+    print(f"Tempo: {tempoTranscorrido:.2f}s, Melhor solução = {len(set(melhorSolucao))}")
 
 main()
