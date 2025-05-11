@@ -3,36 +3,51 @@ import random
 import math
 import time
 
+# Instruções para execução em Linux:
+# 1. É preciso ter o Python 3 instalado. Verificar com o comando: python3 --version
+# 2. Considerando o arquivo simulated_annealing.py dentro da pasta 'metaheuristics', execute o comando:
+#    python3 simulated_annealing.py <caminho_do_arquivo> <iterações> <variação>
+#    - <caminho_do_arquivo>: Caminho para o arquivo instância de entrada.
+#    - <iterações>: Número de iterações para o algoritmo.
+#    - <variação>: Semente para o gerador de números aleatórios.
+# Exemplo de execução:
+#    python3 simulated_annealing.py instancia.txt 1000 3
 
+# função para ler a instância do problema, criando as estruturas aliancas e aliancasCriminoso
 def le_instancia(caminho):
     with open(caminho) as f:
-        n, m = map(int, f.readline().split())
+        numeroCriminosos, _ = map(int, f.readline().split())
+        # cria a tupla de alianças, ex [(1, 2), (6, 10), ...]
         aliancas = [tuple(map(int, line.split())) for line in f]
 
-    # cria uma lista de listas, representando as alianças de cada criminoso para fácil acesso
-    aliancasCriminoso = [[] for _ in range(n)]
+    # uma lista de listas, representando as alianças de cada criminoso para fácil acesso
+    aliancasCriminoso = [[] for _ in range(numeroCriminosos)]
     for a, b in aliancas:
-        aliancasCriminoso[a - 1].append(b - 1)
-        aliancasCriminoso[b - 1].append(a - 1)
+        aliancasCriminoso[a - 1].append(b - 1) # para o criminoso de índice a-1, adiciona o índice do criminoso b
+        aliancasCriminoso[b - 1].append(a - 1) # para o criminoso b faz o inverso, adiciona o criminoso a
 
-    return n, aliancas, aliancasCriminoso
+    return numeroCriminosos, aliancas, aliancasCriminoso
 
-# Função objetivo
+# Função objetivo, com o objetivo de minimizar a quantidade de penitenciárias, considerando as penalizações
 def f(solucao, aliancas):
     penalizacao = 0
+    # a solução é uma lista contendo a informação de em qual penitenciária cada criminoso está, 
+    # logo pegar o length do set disso (os valores distintos da lista) representa
+    # quantas penitenciárias estão em uso
     penitenciariasUsadas = len(set(solucao))
     for a, b in aliancas:
+        # se dois criminosos aliados estão na mesma penitenciária, adiciona penalização
         if solucao[a - 1] == solucao[b - 1]:
             penalizacao += 10000
     return penitenciariasUsadas + penalizacao
 
-# função de penaização, para evitar recalcular toda a função objetivo
+# função de penalização, para evitar recalcular toda a função objetivo
 def delta_f(solucao, criminoso, novaPenitenciaria, aliancasCriminoso):
     penalizacaoAntiga = 0
     penalizacaoNova = 0
     penitenciariaAntiga = solucao[criminoso]
     
-    # calculamos a penalização da penitenciária antiga e da nova
+    # calculamos a penalização da penitenciária antiga e da nova para cada aliado do criminoso usado na movimentação
     for aliado in aliancasCriminoso[criminoso]:
         if solucao[aliado] == penitenciariaAntiga:
             penalizacaoAntiga += 10000
@@ -44,19 +59,11 @@ def delta_f(solucao, criminoso, novaPenitenciaria, aliancasCriminoso):
     solucao_temp = solucao.copy()
     solucao_temp[criminoso] = novaPenitenciaria
     penitenciariasDepois = len(set(solucao_temp))
+    # o delta então é basicamente o s' - s
     deltaPenitenciarias = penitenciariasDepois - penitenciariasAntes
     
-    return (penalizacaoNova - penalizacaoAntiga) + deltaPenitenciarias
-
-# Gera os vizinhos
-def gera_vizinhos(solucao, rng):
-    vizinhos = solucao.copy()
-    criminoso = rng.randint(0, len(solucao) - 1)
-    penitenciariaAtual = vizinhos[criminoso]
-    maiorIndicePenitenciaria = max(vizinhos)
-    novaPenitenciaria = rng.choice([p for p in range(1, maiorIndicePenitenciaria + 2) if p != penitenciariaAtual])
-    vizinhos[criminoso] = novaPenitenciaria
-    return vizinhos, criminoso, novaPenitenciaria
+    # retornamos o s'-s + penalização, seguindo a ideia da função objetivo e de factibilização
+    return deltaPenitenciarias + (penalizacaoNova - penalizacaoAntiga)
 
 # Função para converter a representação por criminosos para representação por penitenciárias
 def converte_representacao(solucao):
@@ -77,7 +84,34 @@ def converte_representacao(solucao):
 
     return representacao_por_penitenciaria
 
-# Metropolis
+def gera_vizinhos(solucao, rng, temperatura):
+    vizinhos = []
+    deltas = []
+    criminososSelecionados = []
+    novasPenitenciarias = []
+    
+    # Usamos a temperatura para ajudar a definir a quantidade de vizinhos, tentando explorar
+    # ainda mais o espaço de soluções no início
+    numVizinhos = max(1, int(temperatura / 10))
+    numVizinhos = min(numVizinhos, len(solucao) * 2)
+    
+    maiorIndicePenitenciaria = max(solucao)
+    penitenciarias_possiveis = list(range(1, maiorIndicePenitenciaria + 2))
+    
+    for _ in range(numVizinhos):
+        criminoso = rng.randint(0, len(solucao) - 1)
+        penitenciariaAtual = solucao[criminoso]
+        novaPenitenciaria = rng.choice([p for p in penitenciarias_possiveis if p != penitenciariaAtual])
+        
+        vizinho = solucao.copy()
+        vizinho[criminoso] = novaPenitenciaria
+        
+        vizinhos.append(vizinho)
+        criminososSelecionados.append(criminoso)
+        novasPenitenciarias.append(novaPenitenciaria)
+    
+    return vizinhos, criminososSelecionados, novasPenitenciarias
+
 # sInicial, t, n, r -> melhor solução encontrada
 def metropolis(solucaoInicial, temperatura, iteracoes, rng, tempoInicio, aliancas, aliancasCriminoso):
     # s = s* = sInicial
@@ -89,34 +123,41 @@ def metropolis(solucaoInicial, temperatura, iteracoes, rng, tempoInicio, alianca
     # for n iterações do
     for _ in range(iteracoes):
         # for s' E N(s) em ordem aleatória (usa R) do
-        solucaoVizinho, criminoso, novaPenitenciaria = gera_vizinhos(solucao, rng)
+        vizinhos, criminosos, novasPenitenciarias = gera_vizinhos(solucao, rng, temperatura)
         
-        # delta = abs(f(s') - f(s))
-        delta = delta_f(solucao, criminoso, novaPenitenciaria, aliancasCriminoso)
-        valorVizinho = valorAtual + delta
+        for vizinho, criminoso, novaPenitenciaria in zip(vizinhos, criminosos, novasPenitenciarias):
+            # delta = abs(f(s') - f(s))
+            delta = delta_f(solucao, criminoso, novaPenitenciaria, aliancasCriminoso)
+            # o delta é basicamente a diferença entre a penitenciária antiga e a nova + penalização, então podemos
+            # considerar o valor do vizinho como o valor atual + o delta
+            valorVizinho = valorAtual + delta
 
-        # if s' é melhor que s then
-        if valorVizinho < valorAtual:
-            solucao = solucaoVizinho.copy()
-            valorAtual = valorVizinho
-            # if s' é melhor que s* then
-            if valorVizinho < melhorValor:
-                melhorSolucao = solucaoVizinho.copy()
-                melhorValor = valorVizinho
-        # else if rand(R) <= e^(-delta/T) then
-        elif rng.random() < math.exp(-delta / temperatura):
-            solucao = solucaoVizinho.copy()
-            valorAtual = valorVizinho
+            # if s' é melhor que s then
+            if valorVizinho < valorAtual:
+                solucao = vizinho.copy()
+                valorAtual = valorVizinho
+                # if s' é melhor que s* then
+                if valorVizinho < melhorValor:
+                    melhorSolucao = vizinho.copy()
+                    melhorValor = valorVizinho
+                # Aceita o primeiro vizinho que melhora, saindo fora do for
+                break
+            # else if rand(R) <= e^(-delta/T) then
+            elif rng.random() < math.exp(-delta / temperatura):
+                solucao = vizinho.copy()
+                valorAtual = valorVizinho
+                # Se aceitou a solução probabilisticamente, então respeitamos a temperatura / rng e também interrompe o for
+                break
 
     # return s*
     return melhorSolucao, melhorValor
 
-# Simulated Annealing
 # sInicial, Ti, Tf, m, r, rng -> melhor solução encontrada na busca
 def simulated_annealing(solucaoInicial, temperaturaInicial, temperaturaFinal, iteracoes, taxaResfriamento, rng, tempoInicio, aliancas, aliancasCriminoso):
     # t = Ti
     temperaturaAtual = temperaturaInicial
 
+    # usamos melhorValor e valorAtual retornado pelo metropolis, evitando recalcular f(s) na condicional if do laço while
     melhorValor = f(solucaoInicial, aliancas)
 
     # s* = s = sInicial
@@ -126,15 +167,14 @@ def simulated_annealing(solucaoInicial, temperaturaInicial, temperaturaFinal, it
     while temperaturaAtual >= temperaturaFinal:
         # s = metropolis(s,t,m,rng)
         solucaoAtual, valorAtual = metropolis(solucaoAtual, temperaturaAtual, iteracoes, rng, tempoInicio, aliancas, aliancasCriminoso)
-        # if s > s*
+        # if s > s* -- no caso <, pois estamos minimizando
         if valorAtual < melhorValor:
             # s* = s
             melhorSolucao = solucaoAtual
             melhorValor = valorAtual
+
             tempoTranscorrido = time.time() - tempoInicio
-
             representacao_por_penitenciaria = converte_representacao(melhorSolucao)
-
             print(f"Tempo: {tempoTranscorrido:.2f}s, Penitenciárias: {len(representacao_por_penitenciaria)}")
             print(f"Representação por penitenciária: {representacao_por_penitenciaria}")
 
@@ -152,15 +192,13 @@ def main():
     iteracoes = int(sys.argv[2])
     semente = int(sys.argv[3])
 
-    print(f"Caminho: {caminhoArquivo}, Iterações: {iteracoes}, Variação: {semente}")
+    # print(f"Caminho: {caminhoArquivo}, Iterações: {iteracoes}, Variação: {semente}")
 
     quantidadeCriminosos, aliancas, aliancasCriminoso = le_instancia(caminhoArquivo)
 
     tempoInicio = time.time()
-
     melhorSolucao = simulated_annealing(
-        solucaoInicial=list(range(1, quantidadeCriminosos + 1)),
-        # Começamos com cada criminoso em sua própria penitenciária
+        solucaoInicial=list(range(1, quantidadeCriminosos + 1)), # Começamos com cada criminoso em sua própria penitenciária
         temperaturaInicial=100,
         temperaturaFinal=0.1,
         iteracoes=iteracoes,
