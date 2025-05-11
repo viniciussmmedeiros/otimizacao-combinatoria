@@ -14,7 +14,7 @@ def le_instancia(caminho):
     for a, b in aliancas:
         aliancasCriminoso[a - 1].append(b - 1)
         aliancasCriminoso[b - 1].append(a - 1)
-    print(aliancasCriminoso)
+
     return n, aliancas, aliancasCriminoso
 
 # Função objetivo
