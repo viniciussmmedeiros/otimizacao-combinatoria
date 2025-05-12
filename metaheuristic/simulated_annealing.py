@@ -112,6 +112,31 @@ def gera_vizinhos(solucao, rng, temperatura):
     
     return vizinhos, criminososSelecionados, novasPenitenciarias
 
+def solucao_inicial(quantidadeCriminosos, aliancas, numPenitenciarias):
+    # Calcular quantidade de alianças de cada criminoso
+    quantidade_aliancas = {}
+    for i in range(1, quantidadeCriminosos + 1):
+        quantidade_aliancas[i] = 0
+
+    for a, b in aliancas:
+        quantidade_aliancas[a] += 1
+        quantidade_aliancas[b] += 1
+
+    # Ordenar criminosos por número de alianças (do maior para o menor)
+    criminosos_ordenados = sorted(range(1, quantidadeCriminosos + 1),
+                                  key=lambda x: quantidade_aliancas[x],
+                                  reverse=True)
+
+    # Inicializar solução: distribuir criminosos ciclicamente entre as penitenciárias
+    solucao = [0] * quantidadeCriminosos
+    for i, criminoso in enumerate(criminosos_ordenados):
+        # Escolher penitenciária de forma cíclica (1, 2, 3, 1, 2, 3, ...)
+        penitenciaria = (i % numPenitenciarias) + 1
+        solucao[criminoso - 1] = penitenciaria
+
+    print("solucao_inicial_simples", solucao)
+    return solucao
+
 # sInicial, t, n, r -> melhor solução encontrada
 def metropolis(solucaoInicial, temperatura, iteracoes, rng, tempoInicio, aliancas, aliancasCriminoso):
     # s = s* = sInicial
@@ -184,13 +209,15 @@ def simulated_annealing(solucaoInicial, temperaturaInicial, temperaturaFinal, it
     return melhorSolucao
 
 def main():
-    if len(sys.argv) != 4:
+    if len(sys.argv) != 6:
         print("Uso incorreto, deve ser: python3 simulated_annealing.py <caminho_do_arquivo> <iterações> <variação>")
         sys.exit(1)
 
     caminhoArquivo = sys.argv[1]
     iteracoes = int(sys.argv[2])
     semente = int(sys.argv[3])
+    temperaturaInicial = int(sys.argv[4])
+    taxaResfriamento = float(sys.argv[5])
 
     # print(f"Caminho: {caminhoArquivo}, Iterações: {iteracoes}, Variação: {semente}")
 
@@ -198,11 +225,12 @@ def main():
 
     tempoInicio = time.time()
     melhorSolucao = simulated_annealing(
-        solucaoInicial=list(range(1, quantidadeCriminosos + 1)), # Começamos com cada criminoso em sua própria penitenciária
-        temperaturaInicial=100,
+        # solucaoInicial=list(range(1, quantidadeCriminosos + 1)), # Começamos com cada criminoso em sua própria penitenciária
+        solucaoInicial=solucao_inicial(quantidadeCriminosos, aliancas, int(len(aliancas) /quantidadeCriminosos)),
+        temperaturaInicial=temperaturaInicial,
         temperaturaFinal=0.1,
         iteracoes=iteracoes,
-        taxaResfriamento=0.99,
+        taxaResfriamento=taxaResfriamento,
         rng=random.Random(semente),
         tempoInicio=tempoInicio,
         aliancas=aliancas,
