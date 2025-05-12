@@ -2,6 +2,7 @@ import sys
 import random
 import math
 import time
+from collections import defaultdict, Counter
 
 # Instruções para execução em Linux:
 # 1. É preciso ter o Python 3 instalado. Verificar com o comando: python3 --version
@@ -114,29 +115,37 @@ def gera_vizinhos(solucao, rng, temperatura):
     
     return vizinhos, criminososSelecionados, novasPenitenciarias
 
-def solucao_inicial(quantidadeCriminosos, aliancas, numPenitenciarias):
-    # Calcular quantidade de alianças de cada criminoso
-    quantidade_aliancas = {}
-    for i in range(1, quantidadeCriminosos + 1):
-        quantidade_aliancas[i] = 0
-
+# Utiliza um algoritmo guloso de coloração de grafos para criar uma solução inicial.
+# Cada cor representa uma penitenciária.
+def solucao_inicial_por_coloracao(quantidadeCriminosos, aliancas):
+    # Construir o grafo de adjacência
+    grafo = defaultdict(set)
     for a, b in aliancas:
-        quantidade_aliancas[a] += 1
-        quantidade_aliancas[b] += 1
+        grafo[a].add(b)
+        grafo[b].add(a)
 
-    # Ordenar criminosos por número de alianças (do maior para o menor)
+    # Inicializar a solução (cores/penitenciárias)
+    solucao = [0] * quantidadeCriminosos
+
+    # Ordem de processamento: começar pelos vértices de maior grau
     criminosos_ordenados = sorted(range(1, quantidadeCriminosos + 1),
-                                  key=lambda x: quantidade_aliancas[x],
+                                  key=lambda x: len(grafo[x]),
                                   reverse=True)
 
-    # Inicializar solução: distribuir criminosos ciclicamente entre as penitenciárias
-    solucao = [0] * quantidadeCriminosos
-    for i, criminoso in enumerate(criminosos_ordenados):
-        # Escolher penitenciária de forma cíclica (1, 2, 3, 1, 2, 3, ...)
-        penitenciaria = (i % numPenitenciarias) + 1
-        solucao[criminoso - 1] = penitenciaria
+    # Coloração gulosa (primeiro encaixe)
+    for criminoso in criminosos_ordenados:
+        # Cores já usadas pelos vizinhos
+        cores_vizinhos = {solucao[vizinho - 1] for vizinho in grafo[criminoso]
+                          if solucao[vizinho - 1] != 0}
 
-    print("solucao_inicial_simples", solucao)
+        # Encontra a primeira cor disponível
+        cor = 1
+        while cor in cores_vizinhos:
+            cor += 1
+
+        solucao[criminoso - 1] = cor
+
+    print("solucao_inicial_por_coloracao", solucao)
     return solucao
 
 # sInicial, t, n, r -> melhor solução encontrada
@@ -227,8 +236,7 @@ def main():
 
     tempoInicio = time.time()
     melhorSolucao = simulated_annealing(
-        # solucaoInicial=list(range(1, quantidadeCriminosos + 1)), # Começamos com cada criminoso em sua própria penitenciária
-        solucaoInicial=solucao_inicial(quantidadeCriminosos, aliancas, int(len(aliancas) /quantidadeCriminosos)),
+        solucaoInicial=solucao_inicial_por_coloracao(quantidadeCriminosos, aliancas),
         temperaturaInicial=temperaturaInicial,
         temperaturaFinal=0.1,
         iteracoes=iteracoes,
