@@ -187,10 +187,6 @@ def simulated_annealing(solucaoInicial, temperaturaInicial, temperaturaFinal, it
     return melhorSolucao
 
 def main():
-    if len(sys.argv) != 4:
-        print("Uso incorreto, deve ser: python3 simulated_annealing.py <caminho_do_arquivo> <iterações> <variação>")
-        sys.exit(1)
-
     caminhoArquivo = sys.argv[1]
     iteracoes = int(sys.argv[2])
     semente = int(sys.argv[3])
