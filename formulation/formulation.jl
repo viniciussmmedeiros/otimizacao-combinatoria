@@ -74,6 +74,7 @@ function main()
 	@show objective_value(m)
 	@show solve_time(m)
 	@show objective_bound(m)
+	@show get_attribute(m, "random_seed")
 end
 
 main()
