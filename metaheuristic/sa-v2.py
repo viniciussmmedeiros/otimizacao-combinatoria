@@ -44,77 +44,80 @@ def converte_representacao(solucao):
     for criminoso, penitenciaria in enumerate(solucao):
         idx_penitenciaria = mapeamento_penitenciarias[penitenciaria]
         representacao_por_penitenciaria[idx_penitenciaria].append(
-            criminoso + 1)  # +1 porque os criminosos são numerados a partir de 1
+            criminoso)
 
     return representacao_por_penitenciaria
 
 # sInicial, t, n, r -> melhor solução encontrada
-def metropolis(solucaoInicial, temperatura, iteracoes, rng, tempoInicio, aliancasCriminoso, valor_objetivo, prisioneiros_por_prisao, quantidadeCriminosos):
+def metropolis(solucaoInicial, temperatura, iteracoes, rng, tempoInicio, aliancasCriminoso, valor_objetivo,
+               prisioneiros_por_prisao, quantidadeCriminosos):
     # s = s* = sInicial
     solucao = solucaoInicial.copy()
     melhorSolucao = solucaoInicial.copy()
     melhorValorObjetivo = valorObjetivoAtual = valor_objetivo
 
+    # Copia do contador para não modificar o original durante as tentativas
+    prisioneiros_por_prisao_atual = prisioneiros_por_prisao.copy()
+
     # for n iterações do
     for _ in range(iteracoes):
-        # for s' E N(s) em ordem aleatória (usa R) do
-
-        criminoso = rng.randint(0, len(solucao) - 1) # escolhe um criminoso aleatório, lembrando que len(solucao) é o número de criminosos
+        # Escolhe um criminoso aleatório
+        criminoso = rng.randint(0, len(solucao) - 1)
         penitenciariaAtual = solucao[criminoso]
-        # o código [p for p in penitenciariasPossiveis if p != penitenciariaAtual] cria a lista de penitencárias tirando a que o criminoso está
-        # rng choice escolhe aleatoriamente um item dessa lista
+
+        # Escolhe uma nova penitenciária diferente da atual
         novaPenitenciaria = rng.choice([p for p in range(len(solucao)) if p != penitenciariaAtual])
 
-        # coloca o criminoso na nova penitenciária
-        solucao[criminoso] = novaPenitenciaria
-        
+        # Calcula o novo valor objetivo sem modificar a solução ainda
         novo_valor_objetivo = valorObjetivoAtual
 
-        # decrementa o número de criminosos na penitenciáriaAtual (antiga)
-        prisioneiros_por_prisao[penitenciariaAtual] -= 1
+        # Simulação da mudança no contador
+        nova_qtd_atual = prisioneiros_por_prisao_atual[penitenciariaAtual] - 1
+        nova_qtd_nova = prisioneiros_por_prisao_atual[novaPenitenciaria] + 1
 
-        # incrementa o número de criminosos na nova penitenciária
-        prisioneiros_por_prisao[novaPenitenciaria] += 1
-
-        # se a penitenciária antiga ficou sem criminosos, então decrementamos o valor objetivo
-        if prisioneiros_por_prisao[penitenciariaAtual] == 0:
+        # Se a penitenciária atual ficará vazia
+        if nova_qtd_atual == 0:
             novo_valor_objetivo -= 1
 
-        # se a nova penitenciária passou a ter um criminoso, então incrementamos o valor objetivo
-        if prisioneiros_por_prisao[novaPenitenciaria] == 1:
+        # Se a nova penitenciária estava vazia
+        if prisioneiros_por_prisao_atual[novaPenitenciaria] == 0:
             novo_valor_objetivo += 1
 
-        penalizacao = 0
+        # Calcula penalizações
+        penalizacao_nova = 0
+        penalizacao_atual = 0
         for aliado in aliancasCriminoso[criminoso]:
             if solucao[aliado] == novaPenitenciaria:
-                # a penalização para aliados na mesma penitenciária é o próprio número de criminosos, que representa
-                # a solução factível mais trivial possível
-                penalizacao += quantidadeCriminosos 
-        novo_valor_objetivo += penalizacao
+                penalizacao_nova += quantidadeCriminosos
+            if solucao[aliado] == penitenciariaAtual:
+                penalizacao_atual += quantidadeCriminosos
 
-        # se o valor objetivo após a troca de penitenciária é melhor do que o nosso melhor valor, então atualiza a melhor solução e o valor objetivo
-        if novo_valor_objetivo < melhorValorObjetivo:
-            melhorSolucao = solucao.copy()
-            melhorValorObjetivo = novo_valor_objetivo
+        novo_valor_objetivo += penalizacao_nova - penalizacao_atual
 
-        # se o valor objetivo após a troca de penitenciária é melhor do que o nosso valor objetivo atual ou a troca foi aceita probabilisticamente
-        # então atualizamos o valor objetivo atual e continuamos para a próxima iteração
-        if novo_valor_objetivo < valorObjetivoAtual or rng.random() < math.exp(-(novo_valor_objetivo - valorObjetivoAtual) / temperatura):
+        # Verifica se aceita a mudança
+        aceita_mudanca = (novo_valor_objetivo < valorObjetivoAtual or
+                          rng.random() < math.exp(-(novo_valor_objetivo - valorObjetivoAtual) / temperatura))
+
+        if aceita_mudanca:
+            # Aplica a mudança
+            solucao[criminoso] = novaPenitenciaria
             valorObjetivoAtual = novo_valor_objetivo
-            # solucao já está atualizada
-            continue
-        else:
-            # caso contrário, ou seja: a troca de penitenciária não melhorou o valor objetivo e não foi aceita probabilisticamente, nós revertemos
-            # a atualização de penitenciária do criminoso 
-            solucao[criminoso] = penitenciariaAtual
-            prisioneiros_por_prisao[penitenciariaAtual] += 1
-            prisioneiros_por_prisao[novaPenitenciaria] -= 1
+            prisioneiros_por_prisao_atual[penitenciariaAtual] = nova_qtd_atual
+            prisioneiros_por_prisao_atual[novaPenitenciaria] = nova_qtd_nova
 
-    # return s*
-    return melhorSolucao, melhorValorObjetivo, prisioneiros_por_prisao
+            # Verifica se é a melhor solução encontrada no Metropolis
+            if novo_valor_objetivo < melhorValorObjetivo:
+                melhorSolucao = solucao.copy()
+                melhorValorObjetivo = novo_valor_objetivo
+
+    # IMPORTANTE: Retorna a solução atual (não necessariamente a melhor do Metropolis)
+    # Isso é correto para o Simulated Annealing, pois queremos continuar a partir da última solução aceita
+    return solucao, valorObjetivoAtual, prisioneiros_por_prisao_atual
+
 
 # sInicial, Ti, Tf, m, r, rng -> melhor solução encontrada na busca
-def simulated_annealing(solucaoInicial, temperaturaInicial, temperaturaFinal, iteracoes, taxaResfriamento, rng, tempoInicio, aliancasCriminoso, numeroCriminosos):
+def simulated_annealing(solucaoInicial, temperaturaInicial, temperaturaFinal, iteracoes, taxaResfriamento, rng,
+                        tempoInicio, aliancasCriminoso, numeroCriminosos):
     # t = Ti
     temperaturaAtual = temperaturaInicial
 
@@ -122,23 +125,31 @@ def simulated_annealing(solucaoInicial, temperaturaInicial, temperaturaFinal, it
     melhorSolucao = solucaoInicial.copy()
     solucaoAtual = solucaoInicial.copy()
 
-    # o valor objetivo inicial é o trivial: quantiade de penitenciárias ativas = quantidade de criminosos
-    valor_objetivo = len(solucaoInicial)
-    
+    # SEPARAR: valor objetivo da melhor solução e da solução atual
+    melhorValorObjetivo = len(solucaoInicial)  # Melhor valor objetivo encontrado GLOBALMENTE
+    valorObjetivoAtual = len(solucaoInicial)  # Valor objetivo da solução atual
+
     # valor para fazer avaliação diferencial
     prisioneiros_por_prisao = Counter(solucaoInicial)
 
     # while t >= Tf
     while temperaturaAtual >= temperaturaFinal:
         # s = metropolis(s,t,m,rng)
-        nova_solucao, novo_valor_objetivo, novo_prisioneiros_por_prisao = metropolis(solucaoAtual, temperaturaAtual, iteracoes, rng, tempoInicio, aliancasCriminoso, valor_objetivo, prisioneiros_por_prisao, numeroCriminosos)
-        # if s > s* -- no caso <, pois estamos minimizando
-        if novo_valor_objetivo < valor_objetivo:
-            # s* = s
+        nova_solucao, novo_valor_objetivo, novo_prisioneiros_por_prisao = metropolis(
+            solucaoAtual, temperaturaAtual, iteracoes, rng, tempoInicio,
+            aliancasCriminoso, valorObjetivoAtual, prisioneiros_por_prisao, numeroCriminosos
+        )
+
+        # Atualizar solução atual (sempre, independente de ser melhor)
+        solucaoAtual = nova_solucao
+        valorObjetivoAtual = novo_valor_objetivo
+        prisioneiros_por_prisao = novo_prisioneiros_por_prisao
+
+        # Verificar se encontramos uma nova melhor solução GLOBAL
+        if novo_valor_objetivo < melhorValorObjetivo:
             melhorSolucao = nova_solucao.copy()
-            valor_objetivo = novo_valor_objetivo
-            prisioneiros_por_prisao = novo_prisioneiros_por_prisao
-        
+            melhorValorObjetivo = novo_valor_objetivo
+
             tempoTranscorrido = time.time() - tempoInicio
             representacao_por_penitenciaria = converte_representacao(melhorSolucao)
             print(f"Tempo: {tempoTranscorrido:.2f}s, Penitenciárias: {len(representacao_por_penitenciaria)}")
@@ -146,6 +157,7 @@ def simulated_annealing(solucaoInicial, temperaturaInicial, temperaturaFinal, it
 
         # t = r*t
         temperaturaAtual *= taxaResfriamento
+
     # return s*
     return melhorSolucao
 
@@ -162,7 +174,7 @@ def main():
 
     tempoInicio = time.time()
     melhorSolucao = simulated_annealing(
-        solucaoInicial=list(range(1, quantidadeCriminosos + 1)), # Começamos com cada criminoso em sua própria penitenciária
+        solucaoInicial=list(range(quantidadeCriminosos)), # Começamos com cada criminoso em sua própria penitenciária
         temperaturaInicial=temperaturaInicial,
         temperaturaFinal=0.1,
         iteracoes=iteracoes,
