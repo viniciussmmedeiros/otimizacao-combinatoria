@@ -44,27 +44,51 @@ def f(solucao, aliancas):
 
 # função de penalização, para evitar recalcular toda a função objetivo
 def delta_f(solucao, criminoso, novaPenitenciaria, aliancasCriminoso):
-    penalizacaoAntiga = 0
-    penalizacaoNova = 0
     penitenciariaAntiga = solucao[criminoso]
-    
-    # calculamos a penalização da penitenciária antiga e da nova para cada aliado do criminoso usado na movimentação
+
+    # Se está tentando mover para a mesma penitenciária, não há mudança
+    if penitenciariaAntiga == novaPenitenciaria:
+        return 0
+
+    # DELTA DE PENALIZAÇÃO: conta apenas as alianças que mudam de estado
+    deltaPenalizacao = 0
+
     for aliado in aliancasCriminoso[criminoso]:
-        if solucao[aliado] == penitenciariaAntiga:
-            penalizacaoAntiga += 10000
-        if solucao[aliado] == novaPenitenciaria:
-            penalizacaoNova += 10000
-    
-    # calculamos o impacto da realocação do criminoso na quantidade de penitenciárias
-    penitenciariasAntes = len(set(solucao))
-    solucao_temp = solucao.copy()
-    solucao_temp[criminoso] = novaPenitenciaria
-    penitenciariasDepois = len(set(solucao_temp))
-    # o delta então é basicamente o s' - s
-    deltaPenitenciarias = penitenciariasDepois - penitenciariasAntes
-    
-    # retornamos o s'-s + penalização, seguindo a ideia da função objetivo e de factibilização
-    return deltaPenitenciarias + (penalizacaoNova - penalizacaoAntiga)
+        penitenciariaAliado = solucao[aliado]
+
+        # Se aliado estava na mesma penitenciária antiga: perdemos uma penalização
+        if penitenciariaAliado == penitenciariaAntiga:
+            deltaPenalizacao -= 10000
+
+        # Se aliado está na nova penitenciária: ganhamos uma penalização
+        if penitenciariaAliado == novaPenitenciaria:
+            deltaPenalizacao += 10000
+
+    # DELTA DE PENITENCIÁRIAS: calcula mudança no número de penitenciárias
+    deltaPenitenciarias = 0
+
+    # Conta quantos criminosos estão na penitenciária antiga (incluindo o que vai sair)
+    criminososNaPenitenciariaAntiga = 0
+    for i, pen in enumerate(solucao):
+        if pen == penitenciariaAntiga:
+            criminososNaPenitenciariaAntiga += 1
+
+    # Se só tem este criminoso na penitenciária antiga, ela será eliminada
+    if criminososNaPenitenciariaAntiga == 1:
+        deltaPenitenciarias -= 1
+
+    # Verifica se a nova penitenciária já existe
+    novaPenitenciariaExiste = False
+    for pen in solucao:
+        if pen == novaPenitenciaria:
+            novaPenitenciariaExiste = True
+            break
+
+    # Se a nova penitenciária não existe, será criada
+    if not novaPenitenciariaExiste:
+        deltaPenitenciarias += 1
+
+    return deltaPenitenciarias + deltaPenalizacao
 
 # Função para converter a representação por criminosos para representação por penitenciárias
 def converte_representacao(solucao):
@@ -117,42 +141,46 @@ def gera_vizinhos(solucao, rng, temperatura):
 
 # sInicial, t, n, r -> melhor solução encontrada
 def metropolis(solucaoInicial, temperatura, iteracoes, rng, tempoInicio, aliancas, aliancasCriminoso):
-    # s = s* = sInicial
     solucao = solucaoInicial.copy()
     melhorSolucao = solucao.copy()
+
+    # Calcula valor inicial apenas UMA VEZ
     valorAtual = f(melhorSolucao, aliancas)
     melhorValor = valorAtual
 
-    # for n iterações do
+    # Cria contadores para versão otimizada (opcional)
+    contadores = {}
+    for pen in solucao:
+        contadores[pen] = contadores.get(pen, 0) + 1
+
     for _ in range(iteracoes):
-        # for s' E N(s) em ordem aleatória (usa R) do
         vizinhos, criminosos, novasPenitenciarias = gera_vizinhos(solucao, rng, temperatura)
-        
-        for vizinho, criminoso, novaPenitenciaria in zip(vizinhos, criminosos, novasPenitenciarias):
-            # delta = abs(f(s') - f(s))
+
+        for _, criminoso, novaPenitenciaria in zip(vizinhos, criminosos, novasPenitenciarias):
+            # USA APENAS AVALIAÇÃO DIFERENCIAL - nunca calcula f() do vizinho
             delta = delta_f(solucao, criminoso, novaPenitenciaria, aliancasCriminoso)
-            # o delta é basicamente a diferença entre a penitenciária antiga e a nova + penalização, então podemos
-            # considerar o valor do vizinho como o valor atual + o delta
-            valorVizinho = valorAtual + delta
 
-            # if s' é melhor que s then
-            if valorVizinho < valorAtual:
-                solucao = vizinho.copy()
-                valorAtual = valorVizinho
-                # if s' é melhor que s* then
-                if valorVizinho < melhorValor:
-                    melhorSolucao = vizinho.copy()
-                    melhorValor = valorVizinho
-                # Aceita o primeiro vizinho que melhora, saindo fora do for
-                break
-            # else if rand(R) <= e^(-delta/T) then
-            elif rng.random() < math.exp(-delta / temperatura):
-                solucao = vizinho.copy()
-                valorAtual = valorVizinho
-                # Se aceitou a solução probabilisticamente, então respeitamos a temperatura / rng e também interrompe o for
+            # Aceita se melhora
+            if delta < 0:
+                # Aplica o movimento
+                penitenciariaAntiga = solucao[criminoso]
+                solucao[criminoso] = novaPenitenciaria
+                valorAtual += delta  # Atualiza valor usando apenas o delta
+
+                if valorAtual < melhorValor:
+                    melhorSolucao = solucao.copy()
+                    melhorValor = valorAtual
+
                 break
 
-    # return s*
+            # Aceita probabilisticamente se piora
+            elif delta > 0 and rng.random() < math.exp(-delta / temperatura):
+                penitenciariaAntiga = solucao[criminoso]
+                solucao[criminoso] = novaPenitenciaria
+                valorAtual += delta
+
+                break
+
     return melhorSolucao, melhorValor
 
 # sInicial, Ti, Tf, m, r, rng -> melhor solução encontrada na busca
@@ -193,7 +221,7 @@ def main():
     temperaturaInicial = int(sys.argv[4]) if len(sys.argv) > 4 else 100
     taxaResfriamento = float(sys.argv[5]) if len(sys.argv) > 5 else 0.99
 
-    # print(f"Caminho: {caminhoArquivo}, Iterações: {iteracoes}, Variação: {semente}")
+    print(f"Caminho: {caminhoArquivo}, Iterações: {iteracoes}, Variação: {semente}, Temperatura Inicial: {temperaturaInicial}, Taxa de Resfriamento: {taxaResfriamento}")
 
     quantidadeCriminosos, aliancas, aliancasCriminoso = le_instancia(caminhoArquivo)
 
